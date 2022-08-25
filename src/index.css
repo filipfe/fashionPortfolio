@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  font-family: 'Karma', sans-serif;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  z-index: -99;
+}
+
+.padding-x {
+  padding: 0 10vw;
+}
+
+.padding-y {
+  padding-top: 1.5in;
+  padding-bottom: 3rem;
+}
