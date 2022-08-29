@@ -12,9 +12,7 @@
 }
 
 body {
-  position: relative;
   margin: 0;
-  z-index: -99;
 }
 
 .padding-x {
@@ -22,6 +20,35 @@ body {
 }
 
 .padding-y {
-  padding-top: 1.5in;
+  padding-top: 3rem;
   padding-bottom: 3rem;
+}
+
+#root,
+body,
+html {
+  position: relative;
+  z-index: -99;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+@media all and (min-width: 800px) {
+  .padding-x {
+    padding: 0 12vw;
+  }
+  .padding-x.padding-y {
+    padding: 1in 12vw;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .padding-x {
+    padding: 0 18vw;
+  }
+  .padding-x.padding-y {
+    padding: 1in 18vw;
+  }
 }
