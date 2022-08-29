@@ -1,3 +1,7 @@
 export default function Contact() {
-    return <h1>Contact</h1>
+    return (
+        <section className='padding-y padding-x'>
+            <h1 className="font-bold text-2xl">Contact</h1>
+        </section>
+    )
 }
