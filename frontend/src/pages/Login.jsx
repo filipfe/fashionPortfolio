@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { inputStyles } from "./Signup"
 import { login, logout } from "../reducers/auth"
 import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
 
 export default function Login() {
     return (
@@ -15,16 +16,16 @@ export default function Login() {
 }
 
 function Form() {
-    const isLogged = useSelector(state => state.value.logged)
+    const { logged } = useSelector(state => state.login.value)
     const dispatch = useDispatch()
 
     const handleSubmit = e => {
-        e.preventDefault()  
+        e.preventDefault()
         dispatch(login())
     }
 
     return (
-        !isLogged ? <form onSubmit={handleSubmit} className='flex flex-col gap-4 my-4'>
+        !logged ? <form onSubmit={handleSubmit} className='flex flex-col gap-4 my-4'>
                         <input className={inputStyles} type='email' name='email' placeholder="Email" />
                         <input className={inputStyles} type='password' name='password' placeholder="Password" />
                         <button type="submit" className='w-full bg-[#E0AFA0] text-white rounded-md py-2 font-medium'>Log in</button>
