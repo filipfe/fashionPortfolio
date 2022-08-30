@@ -20,15 +20,15 @@ const ui = [
 export default function Header() {
     const [nav, setNav] = useState(false)
     const [authorized, setAuthorized] = useState(false)
-    const isLogged = useSelector(state => state.value.logged)
+    const login = useSelector(state => state.login.value)
 
     const disableNav = () => setNav(false)
 
     const NavLink = ({ children, path }) => <Link to={path} onClick={disableNav}>{children}</Link>
 
     useEffect(() => {
-        setAuthorized(isLogged)
-    }, [isLogged])
+        setAuthorized(login)
+    }, [login])
 
     return (
         <header className='flex justify-between items-center min-h-[5rem] bg-white padding-x shadow-md sticky top-0 w-full z-10 '>
