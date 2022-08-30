@@ -8,7 +8,7 @@ export default function Clothing() {
 
     useEffect(() => {
         let lastPath = location.pathname.split('/').pop()
-        axios.get('/')
+        axios.get('/clothing/api')
             .then(res => console.log(res.data))
             .then(data => lastPath === 'trending' ? data.filter(cloth => cloth.trending) : lastPath === 'new' ? data.filter(cloth => cloth.new) : data.filter(cloth => cloth.sex === lastPath))
             .then(clothes => setClothes(clothes))
@@ -31,7 +31,7 @@ const Cloth = (props) => {
     return (
         <div>
             <div className='h-[4in]'>
-                <img className="max-w-[90%] max-h-[90%]" src={props.image} alt='' />
+                <img className="max-w-[90%] max-h-[90%]" src='' alt='' />
             </div>
             <h3>{props.title}</h3>
             {props.sale ? <p><s>{props.price}</s></p> : <p>{props.price}</p>}
