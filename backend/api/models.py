@@ -10,8 +10,8 @@ TROUSERS = 'trousers'
 
 TYPES = [
     (SHOES, 'Shoes'),
-    (JACKET, 'Jacket'),
-    (TSHIRT, 'Tshirt'),
+    (JACKET, 'Jackets'),
+    (TSHIRT, 'Tshirts'),
     (HOODIES, 'Hoodies'),
     (TROUSERS, 'Trousers'),
 ]
@@ -34,3 +34,4 @@ class Clothing(models.Model):
     collection = models.BooleanField(default=False)
     new = models.BooleanField(default=False)
     sale = models.IntegerField(default=0)
+    id = models.AutoField
