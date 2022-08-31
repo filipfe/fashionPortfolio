@@ -26,7 +26,7 @@ SEX = [
 
 class Clothing(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='')
     price = models.FloatField()
     type = models.CharField(max_length=8, choices=TYPES, default='Shoes')
     sex = models.CharField(max_length=5, choices=SEX, default='Women')
