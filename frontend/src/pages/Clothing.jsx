@@ -36,10 +36,6 @@ export default function Clothing() {
         )
     }
 
-    useEffect(() => {
-        console.log(filtered)
-    }, [filtered])
-
     return (
         <section className="padding-x padding-y">
             <div className='grid-cols-clothes grid'>
@@ -60,9 +56,9 @@ const Cloth = (props) => {
     const dispatch = useDispatch()
 
     return (
-        <div onClick={() => dispatch(add(props.cloth))}>
+        <div onClick={() => dispatch(add({...props.cloth, quantity: 1}))}>
             <div className='h-[4.5in] bg-[#BDBDBD]'>
-                <img className="max-w-[90%] max-h-[90%]" src={props.image} alt='' />
+                <img className="max-w-[90%] max-h-[90%]" src={`http://127.0.0.1:8000/../../backend/images/${props.image.split('/').pop()}`} alt='' />
             </div>
             <h3 className='text-center my-2'>{props.title}</h3>
             {props.sale > 0 ? 

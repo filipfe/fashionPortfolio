@@ -32,7 +32,9 @@ export default function Header() {
     }, [login])
 
     useEffect(() => {
-        setQuantity(cart.length)
+        let q = 0;
+        cart.forEach(item => q += item.quantity)
+        setQuantity(q)
     }, [cart])
 
     return (

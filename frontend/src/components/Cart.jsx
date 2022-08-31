@@ -15,10 +15,11 @@ export default function Cart() {
     useEffect(() => {
         let summaryPrice = 0;
         items.forEach(cloth => {
+            let item = cart.find(item => item.id === cloth.id)
             if(cloth.sale) {
-                summaryPrice += cloth.price - (cloth.price * (cloth.sale / 100)) 
+                summaryPrice += (cloth.price - (cloth.price * (cloth.sale / 100))) * item.quantity
             } else {
-                summaryPrice += cloth.price
+                summaryPrice += cloth.price * item.quantity
             }
         })
         setSummary(summaryPrice)
@@ -26,7 +27,7 @@ export default function Cart() {
 
     return (
         <div className="cart flex flex-col lg:max-w-[max-content]">
-            {items.map(cloth => <CartItem {...cloth} setSummary={setSummary} cloth={cloth} key={cloth} />)}
+            {items.map(cloth => <CartItem {...cloth} cart={cart} cloth={cloth} key={cloth} />)}
             { summary > 0 ? 
             <>
                 <h2 className="border-t-2 text-xl border-[#BDBDBD] font-bold pt-8">Summary</h2>
@@ -40,11 +41,10 @@ export default function Cart() {
 const CartItem = props => {
     const dispatch = useDispatch()
     const [quantity, setQuantity] = useState(1)
-    const [price, setPrice] = useState(props.sale ? props.price - (props.price * (props.sale / 100)) : props.price)
 
     useEffect(() => {
-        setPrice(quantity * props.sale ? props.price - (props.price * (props.sale / 100)) : props.price)
-    }, [quantity])
+        setQuantity(props.cart.find(item => item.id === props.id).quantity)
+    }, [])
 
     return (
         <div className="p-4 flex gap-6 border-t-2 border-[#BDBDBD]">
@@ -53,8 +53,8 @@ const CartItem = props => {
             </div>
             <h3>{props.title}</h3>
             {props.sale ? <strong>${props.sale ? props.price - (props.price * (props.sale / 100)) : props.price} <span className="text-red-500">{`-(${props.sale}%)`}</span></strong> : <strong>${props.price}</strong>}
-            <button onClick={() => quantity === 1 ? dispatch(remove(props.cloth)) : setQuantity(prev => prev - 1)} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">-</button>
-            <button onClick={() => setQuantity(prev => prev + 1)} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">+</button>
+            <button onClick={() => {dispatch(remove(props.cloth)); setQuantity(prev => prev - 1)}} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">-</button>
+            <button onClick={() => {dispatch(add(props.cloth)); setQuantity(prev => prev + 1)}} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">+</button>
             <h3 className="font-bold text-3xl flex items-center">{quantity}</h3>
         </div>
     )
