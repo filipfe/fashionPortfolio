@@ -1,13 +1,21 @@
 import { useLocation } from "react-router"
 import { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { add } from "../reducers/cart"
 import axios from 'axios'
 
+const filters = [
+    'Jacket',
+    'Shoes',
+    'Tshirt',
+    'Hoodies',
+    'Trousers'
+]
+
 export default function Clothing() {
     const [clothes, setClothes] = useState([])
+    const [filtered, setFiltered] = useState([])
     const location = useLocation()
-    const { cart } = useSelector(state => state.cart)
 
     useEffect(() => {
         let lastPath = location.pathname.split('/').pop()
@@ -18,16 +26,28 @@ export default function Clothing() {
             .catch(error => console.log(error.message))
     }, [location])
 
-    useEffect(() => {
-        console.log(cart)
-    }, [cart])
+    const AsideFilter = () => {
+        return (
+            <aside className="pt-[3rem] md:pt-[1in] flex justify-center">
+                <nav>
+                    <ul className="flex flex-col gap-4">
+                        {filters.map(filter => <li onClick={() => setFiltered(prev => prev.filter(cloth => cloth.type === filter))}>{filter}</li>)}
+                    </ul>
+                </nav>
+            </aside>
+        )
+    }
 
     return (
         <section className="padding-x padding-y">
-            <h1 className="font-bold text-2xl mb-4 lg:text-3xl">Our {location.pathname === '/clothing/new' ? 'new ' : location.pathname === '/clothing/trending' ? 'trending ' : ''}clothing {location.pathname === "/clothing/men" ? 'for men' : location.pathname === "/clothing/women" ? 'for women' : location.pathname === "/clothing/collection" ? 'collection' : '' }</h1>
-            <div className='clothes-wrapper'>
-                <div className='clothes-grid grid md:grid-cols-autoFit gap-8'>
-                    {clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />)}
+            <div className='grid-cols-clothes grid'>
+                <AsideFilter />
+                <div className='clothes-wrapper pl-10'>
+                    <h1 className="font-bold text-2xl mb-8 lg:text-3xl">Our {location.pathname === '/clothing/new' ? 'new ' : location.pathname === '/clothing/trending' ? 'trending ' : ''}clothing {location.pathname === "/clothing/men" ? 'for men' : location.pathname === "/clothing/women" ? 'for women' : location.pathname === "/clothing/collection" ? 'collection' : '' }</h1>
+                    <div className='clothes-grid grid md:grid-cols-autoFit gap-8 border-l-[1px] border-black'>
+                        {filtered.length === 0 ? clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />) :
+                        filtered.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />)}
+                    </div>
                 </div>
             </div>
         </section>
