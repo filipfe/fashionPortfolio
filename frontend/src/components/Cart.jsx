@@ -44,7 +44,6 @@ const CartItem = props => {
 
     useEffect(() => {
         setPrice(quantity * props.sale ? props.price - (props.price * (props.sale / 100)) : props.price)
-        setSummary()
     }, [quantity])
 
     return (
