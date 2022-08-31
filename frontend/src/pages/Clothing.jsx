@@ -28,23 +28,25 @@ export default function Clothing() {
 
     const AsideFilter = () => {
         return (
-            <aside className="pt-[3rem] md:pt-[1in] flex justify-center">
-                <nav>
-                    <ul className="flex flex-col gap-4">
-                        {filters.map(filter => <li onClick={() => setFiltered(prev => prev.filter(cloth => cloth.type === filter))}>{filter}</li>)}
-                    </ul>
+            <aside className="pt-[3rem] md:pt-[1in]">
+                <nav className="flex flex-col gap-4">
+                    {filters.map(filter => <a className="cursor-pointer" onClick={() => setFiltered(clothes.filter(cloth => cloth.type === filter.toLowerCase()))}>{filter}</a>)}
                 </nav>
             </aside>
         )
     }
 
+    useEffect(() => {
+        console.log(filtered)
+    }, [filtered])
+
     return (
         <section className="padding-x padding-y">
             <div className='grid-cols-clothes grid'>
                 <AsideFilter />
-                <div className='clothes-wrapper pl-10'>
+                <div className='clothes-wrapper'>
                     <h1 className="font-bold text-2xl mb-8 lg:text-3xl">Our {location.pathname === '/clothing/new' ? 'new ' : location.pathname === '/clothing/trending' ? 'trending ' : ''}clothing {location.pathname === "/clothing/men" ? 'for men' : location.pathname === "/clothing/women" ? 'for women' : location.pathname === "/clothing/collection" ? 'collection' : '' }</h1>
-                    <div className='clothes-grid grid md:grid-cols-autoFit gap-8 border-l-[1px] border-black'>
+                    <div className='clothes-grid grid md:grid-cols-autoFit gap-8 pl-8 border-l-[1px] border-[#BDBDBD]'>
                         {filtered.length === 0 ? clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />) :
                         filtered.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />)}
                     </div>
@@ -59,14 +61,14 @@ const Cloth = (props) => {
 
     return (
         <div onClick={() => dispatch(add(props.cloth))}>
-            <div className='h-[4in] bg-[#BDBDBD]'>
+            <div className='h-[4.5in] bg-[#BDBDBD]'>
                 <img className="max-w-[90%] max-h-[90%]" src={props.image} alt='' />
             </div>
             <h3 className='text-center my-2'>{props.title}</h3>
             {props.sale > 0 ? 
             <>  
                 <p className='text-center'><del>${props.price}</del></p>
-                <p className='text-center'>${props.price - (props.price * (props.sale / 100))} <strong className='text-red'>{`(-${props.sale}%)`}</strong></p>
+                <p className='text-center'><strong>${props.price - (props.price * (props.sale / 100))} <strong className='text-red-500'>{`(-${props.sale}%)`}</strong></strong></p>
             </>
             : <p className='text-center font-bold'>${props.price}</p>}
         </div>

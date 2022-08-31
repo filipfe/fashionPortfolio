@@ -11,8 +11,8 @@ module.exports = {
         darkPrimary: '#E0AFA0'
       },
       gridTemplateColumns: {
-        autoFit: 'repeat(auto-fit, minmax(400px, 1fr))',
-        clothes: '1fr 4fr'
+        autoFit: 'repeat(auto-fit, minmax(280px, 1fr))',
+        clothes: '1.5in 1fr'
       }
     },
   },
