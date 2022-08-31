@@ -20,7 +20,11 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
-    path('clothing', views.index),
+    path('clothing/women', views.index),
+    path('clothing/men', views.index),
+    path('clothing/collection', views.index),
+    path('clothing/trending', views.index),
+    path('clothing/new', views.index),
     path('contact', views.index),
     path('signup', views.index),
     path('login', views.index),
