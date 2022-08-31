@@ -10,8 +10,8 @@ TROUSERS = 'trousers'
 
 TYPES = [
     (SHOES, 'Shoes'),
-    (JACKET, 'Jacket'),
-    (TSHIRT, 'Tshirt'),
+    (JACKET, 'Jackets'),
+    (TSHIRT, 'Tshirts'),
     (HOODIES, 'Hoodies'),
     (TROUSERS, 'Trousers'),
 ]

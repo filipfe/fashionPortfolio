@@ -20,6 +20,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
+    path('clothing', views.index),
     path('clothing/women', views.index),
     path('clothing/men', views.index),
     path('clothing/collection', views.index),
@@ -28,6 +29,8 @@ urlpatterns = [
     path('contact', views.index),
     path('signup', views.index),
     path('login', views.index),
+    path('cart', views.index),
+    path('profile', views.index),
     path('', include('api.urls')),
 ]
 
