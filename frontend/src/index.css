@@ -46,9 +46,9 @@ body {
 
 @media all and (min-width: 1200px) {
   .padding-x {
-    padding: 0 18vw;
+    padding: 0 14vw;
   }
   .padding-x.padding-y {
-    padding: 1in 18vw;
+    padding: 1in 14vw;
   }
 }

@@ -9,6 +9,9 @@ module.exports = {
       colors: {
         primary: '#E8E0D5',
         darkPrimary: '#E0AFA0'
+      },
+      gridTemplateColumns: {
+        autoFit: 'repeat(auto-fit, minmax(300px, 1fr))'
       }
     },
   },
