@@ -19,10 +19,10 @@ body {
   padding: 0 10vw;
 }
 
-.padding-y {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+.padding-x.padding-y {
+  padding: 1.5in 10vw;
 }
+
 
 #root,
 body,
@@ -40,7 +40,7 @@ body {
     padding: 0 12vw;
   }
   .padding-x.padding-y {
-    padding: 1in 12vw;
+    padding: 1.8in 12vw;
   }
 }
 
@@ -49,6 +49,6 @@ body {
     padding: 0 14vw;
   }
   .padding-x.padding-y {
-    padding: 1in 14vw;
+    padding: 1.8in 14vw;
   }
 }

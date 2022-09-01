@@ -12,6 +12,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         autoFit: 'repeat(auto-fit, minmax(280px, 1fr))',
+        mobileAutoFit: 'repeat(auto-fit, minmax(5rem, 1fr))',
         clothes: '1.5in 1fr'
       }
     },
