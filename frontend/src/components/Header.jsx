@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useResolvedPath, useMatch } from 'react-router-dom'
 import { useState, useEffect, useCallback } from 'react'
 import { cartImg, profile, heart, searchImg } from '../assets/navbar'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
@@ -11,11 +11,6 @@ const pages = [
     'Collection',
     'Trending',
     'New'
-]
-
-const ui = [
-    heart,
-    profile
 ]
 
 export default function Header() {
@@ -33,7 +28,11 @@ export default function Header() {
 
     const disableNav = () => setNav(false)
 
-    const NavLink = ({ children, path }) => <Link to={path} onClick={disableNav}>{children}</Link>
+    const NavLink = ({ children, path }) => {
+        const activePath = useResolvedPath(path)
+        const isActive = useMatch({ path: `${activePath.pathname}/*`, end: true })
+        return <Link className={isActive ? 'text-darkPrimary font-bold' : 'hover:text-darkPrimary'} to={path} onClick={disableNav}>{children}</Link>
+    }
 
     useEffect(() => {
         setAuthorized(login)
@@ -67,7 +66,8 @@ export default function Header() {
                 <NavLink className='hover:text-[darkPrimary]' path='/contact'>Contact us</NavLink>
                 <div className='flex items-center gap-4 mt-4 lg:mt-0 2xl:gap-8 2xl:ml-[8vw] relative'>
                     <a onClick={handleSearch}><img src={searchImg} alt='search' /></a>
-                    {ui.map(i => <NavLink key={i} path={authorized ? '/profile' : '/login'}><img src={i} alt='profile' /></NavLink>)}
+                    <NavLink path='/profile/favourite'><img src={heart} alt='favourite' /></NavLink>
+                    <NavLink path='/profile'><img src={profile} alt='profile' /></NavLink>
                     <NavLink path='/cart'>
                         <img src={cartImg} alt="cart" />
                         {quantity > 0 ? <div className='rounded-[50%] flex justify-center items-center bg-darkPrimary absolute h-[1.2rem] w-[1.2rem] text-sm bottom-[-4px] right-[-4px] text-white'>{quantity}</div> : <></>}

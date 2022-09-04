@@ -11,8 +11,8 @@ export default function Cloth(props) {
                     {props.sale > 0 ? 
                     <>  
                         <div>
-                        <p className='text-center'><del>${props.price}</del></p>
-                        <p className='text-center text-2xl'><strong>${props.price - (props.price * (props.sale / 100))} <strong className='text-red-500'>{`(-${props.sale}%)`}</strong></strong></p>
+                            <p className='text-center'><del>${props.price}</del></p>
+                            <p className='text-center text-2xl'><strong>${props.price - (props.price * (props.sale / 100))} <strong className='text-red-500'>{`(-${props.sale}%)`}</strong></strong></p>
                         </div>
                         <AddToCart cloth={props.cloth} />
                     </>

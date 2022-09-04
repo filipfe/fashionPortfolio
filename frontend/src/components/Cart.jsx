@@ -41,11 +41,8 @@ export default function Cart() {
 
 const CartItem = props => {
     const dispatch = useDispatch()
-    const [quantity, setQuantity] = useState(1)
 
-    useEffect(() => {
-        setQuantity(props.cart.find(item => item.id === props.id).quantity)
-    }, [])
+    const index = props.cart.findIndex(item => item.id === props.id)
 
     return (
         <div className="p-4 flex gap-6 border-t-2 border-[#BDBDBD]">
@@ -54,9 +51,9 @@ const CartItem = props => {
             </div>
             <h3>{props.title}</h3>
             {props.sale ? <strong>${props.sale ? props.price - (props.price * (props.sale / 100)) : props.price} <span className="text-red-500">{`-(${props.sale}%)`}</span></strong> : <strong>${props.price}</strong>}
-            <button onClick={() => {dispatch(remove(props.cloth)); setQuantity(prev => prev - 1)}} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">-</button>
-            <button onClick={() => {dispatch(add(props.cloth)); setQuantity(prev => prev + 1)}} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">+</button>
-            <h3 className="font-bold text-3xl flex items-center">{quantity}</h3>
+            <button onClick={() => {dispatch(remove(props.cloth))}} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">-</button>
+            <button onClick={() => {dispatch(add(props.cloth))}} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">+</button>
+            <h3 className="font-bold text-3xl flex items-center">{index > -1 ? props.cart.find(item => item.id === props.id).quantity : <></>}</h3>
         </div>
     )
 }
