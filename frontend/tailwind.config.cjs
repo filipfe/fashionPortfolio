@@ -14,13 +14,6 @@ module.exports = {
         autoFit: 'repeat(auto-fit, minmax(280px, 1fr))',
         mobileAutoFit: 'repeat(auto-fit, minmax(5rem, 1fr))',
         clothes: '1.5in 1fr'
-      },
-      gridColumn: {
-        first: '1 / 2',
-        second: '2 / 3'
-      },
-      gridRow: {
-        span: '1 / 3'
       }
     },
   },

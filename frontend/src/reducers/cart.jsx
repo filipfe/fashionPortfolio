@@ -13,7 +13,7 @@ export const cartSlice = createSlice({
         },
         remove: (state, action) => {
             let found = state.cart.findIndex(found => action.payload.id === found.id)
-            if(state.cart[found]?.quantity > 1) state.cart[found].quantity--
+            if(state.cart[found].quantity > 1) state.cart[found].quantity--
             else {
                 state.cart.splice(found, 1)
             }

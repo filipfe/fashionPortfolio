@@ -1,7 +1,6 @@
 import { useLocation } from "react-router"
 import { useState, useEffect } from "react"
 import axios from 'axios'
-import { Link } from "react-router-dom"
 
 const filters = [
     'Jacket',
@@ -58,17 +57,17 @@ export default function Clothing() {
 
 const Cloth = (props) => {
     return (
-        <Link className='block no-underline' to={`/clothing/${props.id}`}>
-            <div className='h-[4in] md:h-[4.5in] bg-[#BDBDBD] flex justify-center items-center'>
+        <div onClick={() => dispatch(add({...props.cloth, quantity: 1}))}>
+            <div className='h-[4.5in] bg-[#BDBDBD]'>
                 <img className="max-w-[90%] max-h-[90%]" src={`/images/${props.image.split('/').pop()}`} alt='' />
             </div>
-            <h3 className='text-center text-xl my-2'>{props.title}</h3>
+            <h3 className='text-center my-2'>{props.title}</h3>
             {props.sale > 0 ? 
             <>  
                 <p className='text-center'><del>${props.price}</del></p>
                 <p className='text-center'><strong>${props.price - (props.price * (props.sale / 100))} <strong className='text-red-500'>{`(-${props.sale}%)`}</strong></strong></p>
             </>
             : <p className='text-center font-bold'>${props.price}</p>}
-        </Link>
+        </div>
     )
 }

@@ -41,18 +41,22 @@ export default function Cart() {
 
 const CartItem = props => {
     const dispatch = useDispatch()
-    let item = props.cart.findIndex(item => item.id === props.id)
+    const [quantity, setQuantity] = useState(1)
+
+    useEffect(() => {
+        setQuantity(props.cart.find(item => item.id === props.id).quantity)
+    }, [])
 
     return (
         <div className="p-4 flex gap-6 border-t-2 border-[#BDBDBD]">
-            <div className='h-[3rem] w-[3rem] bg-[#BDBDBD] flex justify-center items-center'>
-                <img className="max-w-[90%] max-h-[90%]" src={props.image} alt='' />
+            <div className='h-[3rem] w-[3rem] bg-[#BDBDBD]'>
+                <img className="max-w-[3rem] max-h-[3rem]" src={props.image} alt='' />
             </div>
             <h3>{props.title}</h3>
             {props.sale ? <strong>${props.sale ? props.price - (props.price * (props.sale / 100)) : props.price} <span className="text-red-500">{`-(${props.sale}%)`}</span></strong> : <strong>${props.price}</strong>}
-            <button onClick={() => dispatch(remove(props.cloth))} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">-</button>
-            <button onClick={() => dispatch(add(props.cloth))} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">+</button>
-            <h3 className="font-bold text-3xl flex items-center">{item > -1 ? props.cart.find(item => item.id === props.id).quantity : ''}</h3>
+            <button onClick={() => {dispatch(remove(props.cloth)); setQuantity(prev => prev - 1)}} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">-</button>
+            <button onClick={() => {dispatch(add(props.cloth)); setQuantity(prev => prev + 1)}} className="rounded-[50%] h-8 w-8 text-xl border-black border-[1px] bg-transparent flex justify-center items-center my-auto">+</button>
+            <h3 className="font-bold text-3xl flex items-center">{quantity}</h3>
         </div>
     )
 }
