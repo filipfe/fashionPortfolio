@@ -35,6 +35,11 @@ body {
   overflow-x: hidden;
 }
 
+a.active {
+  color: #E0AFA0;
+  font-weight: bold;
+}
+
 @media all and (min-width: 800px) {
   .padding-x {
     padding: 0 12vw;

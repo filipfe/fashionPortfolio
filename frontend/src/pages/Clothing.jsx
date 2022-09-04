@@ -26,11 +26,15 @@ export default function Clothing() {
             .catch(error => console.log(error.message))
     }, [location])
 
+    useEffect(() => {
+        console.log(filtered)
+    }, [filtered])
+
     const AsideFilter = () => {
         return (
             <aside className="hidden pt-[3rem] md:pt-[1in] md:block">
                 <nav className="flex flex-col gap-4">
-                    {filters.map(filter => <a className="cursor-pointer" onClick={() => setFiltered(clothes.filter(cloth => cloth.type === filter.toLowerCase()))}>{filter}</a>)}
+                    {filters.map(filter => <a className="cursor-pointer" key={filter} onClick={() => setFiltered(clothes.filter(cloth => cloth.type === filter.toLowerCase()))}>{filter}</a>)}
                 </nav>
             </aside>
         )
@@ -57,10 +61,10 @@ const Cloth = (props) => {
 
     return (
         <div onClick={() => dispatch(add({...props.cloth, quantity: 1}))}>
-            <div className='h-[4.5in] bg-[#BDBDBD]'>
+            <div className='h-[4in] md:h-[4.5in] bg-[#BDBDBD] flex justify-center items-center'>
                 <img className="max-w-[90%] max-h-[90%]" src={`/images/${props.image.split('/').pop()}`} alt='' />
             </div>
-            <h3 className='text-center my-2'>{props.title}</h3>
+            <h3 className='text-center text-xl my-2'>{props.title}</h3>
             {props.sale > 0 ? 
             <>  
                 <p className='text-center'><del>${props.price}</del></p>
