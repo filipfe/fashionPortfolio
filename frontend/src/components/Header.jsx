@@ -1,4 +1,5 @@
 import { Link, useResolvedPath, useMatch } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useState, useEffect, useCallback } from 'react'
 import { cartImg, profile, heart, searchImg } from '../assets/navbar'
 import { useSelector } from 'react-redux/es/exports'
@@ -17,6 +18,7 @@ export default function Header() {
     const [authorized, setAuthorized] = useState(false)
     const login = useSelector(state => state.login.value)
     const { cart } = useSelector(state => state.cart)
+    const location = useLocation()
     const [quantity, setQuantity] = useState(0)
     const [search, setSearch] = useState({
         active: false,
@@ -34,8 +36,8 @@ export default function Header() {
     }
 
     useEffect(() => {
-        setAuthorized(login)
-    }, [login])
+        setSearch({...search, active: false})
+    }, [location])
 
     useEffect(() => {
         let q = 0;
