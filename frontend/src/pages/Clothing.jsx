@@ -1,7 +1,5 @@
 import { useLocation } from "react-router"
 import { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
-import { add } from "../reducers/cart"
 import axios from 'axios'
 import { Link } from "react-router-dom"
 
@@ -15,10 +13,15 @@ const filters = [
 
 export default function Clothing() {
     const [clothes, setClothes] = useState([])
-    const [filtered, setFiltered] = useState([])
+    const [filtered, setFiltered] = useState({
+        filter: '',
+        clothes: []
+    })
+
     const location = useLocation()
 
     useEffect(() => {
+        setFiltered({clothes: [], filter: ''})
         let lastPath = location.pathname.split('/').pop()
         axios.get('/clothing/api')
             .then(res => res.data)
@@ -27,15 +30,11 @@ export default function Clothing() {
             .catch(error => console.log(error.message))
     }, [location])
 
-    useEffect(() => {
-        console.log(filtered)
-    }, [filtered])
-
     const AsideFilter = () => {
         return (
             <aside className="hidden pt-[3rem] md:pt-[1in] md:block">
                 <nav className="flex flex-col gap-4">
-                    {filters.map(filter => <a className="cursor-pointer" key={filter} onClick={() => setFiltered(clothes.filter(cloth => cloth.type === filter.toLowerCase()))}>{filter}</a>)}
+                    {filters.map(filter => <a className={`${filtered.filter === filter ? 'text-darkPrimary' : ''} cursor-pointer`} key={filter} onClick={() => setFiltered({filter: filter, clothes: clothes.filter(cloth => cloth.type === filter.toLowerCase())})}>{filter}</a>)}
                 </nav>
             </aside>
         )
@@ -48,8 +47,8 @@ export default function Clothing() {
                 <div className='clothes-wrapper'>
                     <h1 className="font-bold text-2xl mb-8 lg:text-3xl">Our {location.pathname === '/clothing/new' ? 'new ' : location.pathname === '/clothing/trending' ? 'trending ' : ''}clothing {location.pathname === "/clothing/men" ? 'for men' : location.pathname === "/clothing/women" ? 'for women' : location.pathname === "/clothing/collection" ? 'collection' : '' }</h1>
                     <div className='clothes-grid flex flex-col gap-8 md:grid grid-cols-mobileAutoFit md:grid-cols-autoFit md:pl-8 md:border-l-[1px] md:border-[#BDBDBD]'>
-                        {filtered.length === 0 ? clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />) :
-                        filtered.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />)}
+                        {filtered.clothes.length === 0 ? clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />) :
+                        filtered.clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />)}
                     </div>
                 </div>
             </div>
@@ -58,8 +57,6 @@ export default function Clothing() {
 }
 
 const Cloth = (props) => {
-    const dispatch = useDispatch()
-
     return (
         <Link className='block no-underline' to={`/clothing/${props.id}`}>
             <div className='h-[4in] md:h-[4.5in] bg-[#BDBDBD] flex justify-center items-center'>
