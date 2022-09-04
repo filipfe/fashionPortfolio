@@ -1,8 +1,7 @@
 import { Link, useResolvedPath, useMatch } from 'react-router-dom'
 import { useState, useEffect, useCallback } from 'react'
 import { cartImg, profile, heart, searchImg } from '../assets/navbar'
-import { useDispatch, useSelector } from 'react-redux/es/exports'
-import { add } from '../reducers/cart'
+import { useSelector } from 'react-redux/es/exports'
 import axios from 'axios'
 
 const pages = [
@@ -79,12 +78,12 @@ export default function Header() {
                 <div style={nav ? {display: 'none'} : {}} className={lineStyle}></div>
                 <div style={nav ? {position: 'absolute', top: '50%', transform: 'translateY(-50%) rotate(-45deg)'} : {}} className={lineStyle}></div>
             </div>
-            <div className={`${search.active ? '' : 'hidden'} absolute translate-y-[100%] bottom-0 right-[14vw]`}>
+            {search.active ? <div className='absolute translate-y-[100%] bottom-0 right-[14vw]'>
                 <input onChange={handleInput} className='border-t-[1px] border-x-[1px] border-black px-4 py-2 rounded-sm' type='text' placeholder='Search for clothes' />
                 <div className={`list flex flex-col border-[1px] border-black max-h-[6rem] overflow-auto ${search.active ? '' : 'hidden'}`}>
                     {search.filtered.map(cloth => <SearchItem key={cloth} {...cloth} cloth={cloth} />)}
                 </div>
-            </div>
+            </div> : <></> }
         </header>
     )
 }
@@ -92,15 +91,13 @@ export default function Header() {
 const lineStyle = 'h-[2px] w-full bg-black transition-transform'
 
 const SearchItem = props => {
-    const dispatch = useDispatch()
-
     return (
-        <div onClick={() => dispatch(add({...props.cloth, quantity: 1}))} className='cursor-pointer p-2 flex gap-2 bg-white'>
+        <Link to={`/clothing/${props.id}`} className='cursor-pointer p-2 flex gap-2 bg-white'>
             <div className='h-[2rem] w-[2rem] bg-[#BDBDBD]'>
                 <img className="max-w-[2rem] max-h-[2rem]" src={props.image} alt='' />
             </div>
             <h3>{props.title}</h3>
             {props.sale ? <strong>${props.sale ? props.price - (props.price * (props.sale / 100)) : props.price} <span className="text-red-500">{`-(${props.sale}%)`}</span></strong> : <strong>${props.price}</strong>}
-        </div>
+        </Link>
     )
 }
