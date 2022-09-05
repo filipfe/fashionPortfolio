@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-+5f3rdap^!ufmdk1=nd2g5cbm33$9z#^9v86jqu-)e@u53)b7n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'https://fashionportfolio.up.railway.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'fashionportfolio.up.railway.app']
 
 
 # Application definition
