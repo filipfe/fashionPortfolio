@@ -1,1 +1,1 @@
-web: python backend/manage.py
+web: sh -c 'cd backend && gunicorn config.wsgi --log-file=-'
