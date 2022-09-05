@@ -62,7 +62,7 @@ export default function Header() {
             <div className='logo font-medium'>
                 <Link to='/' onClick={disableNav}>fashionPortfolio.</Link>
             </div>
-            <div className={`navbar flex gap-8 absolute top-0 left-[100%] lg:relative lg:justify-end lg:flex-row lg:h-auto lg:left-auto lg:transform-none lg:opacity-100 h-screen w-screen bg-white items-center flex-col opacity-0 justify-center ${nav ? '-translate-x-full opacity-100' : ''} transition duration-500`}>
+            <nav className={`navbar flex gap-6 absolute top-0 left-[100%] xl:gap-10 lg:relative lg:justify-end lg:flex-row lg:h-auto lg:left-auto lg:transform-none lg:opacity-100 h-screen w-screen bg-white items-center flex-col opacity-0 justify-center ${nav ? '-translate-x-full opacity-100' : ''} transition duration-500`}>
                 {pages.map(page => <NavLink className='hover:text-[darkPrimary]' key={page} path={`/clothing/${page.toLowerCase()}`}>{page}</NavLink>)}
                 <NavLink className='hover:text-[darkPrimary]' path='/contact'>Contact us</NavLink>
                 <div className='flex items-center gap-4 mt-4 lg:mt-0 2xl:gap-8 2xl:ml-[8vw] relative'>
@@ -74,7 +74,7 @@ export default function Header() {
                         {quantity > 0 ? <div className='rounded-[50%] flex justify-center items-center bg-darkPrimary absolute h-[1.2rem] w-[1.2rem] text-sm bottom-[-4px] right-[-4px] text-white'>{quantity}</div> : <></>}
                     </NavLink>
                 </div>
-            </div>
+            </nav>
             <div className='burger flex flex-col relative lg:hidden h-5 w-7 justify-between cursor-pointer' onClick={() => setNav(prev => !prev)}>
                 <div style={nav ? {position: 'absolute', top: '50%', transform: 'translateY(-50%) rotate(45deg)'} : {}} className={lineStyle}></div>
                 <div style={nav ? {display: 'none'} : {}} className={lineStyle}></div>
