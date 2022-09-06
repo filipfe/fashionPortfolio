@@ -46,8 +46,8 @@ const CartItem = props => {
 
     return (
         <div className="p-4 flex gap-6 border-t-2 border-[#BDBDBD]">
-            <div className='h-[3rem] w-[3rem] bg-[#BDBDBD]'>
-                <img className="max-w-[3rem] max-h-[3rem]" src={props.image} alt='' />
+            <div className='h-[3rem] w-[3rem] bg-[#BDBDBD] flex justify-center items-center'>
+                <img className="max-w-[90%] max-h-[90%]" src={props.image} alt='' />
             </div>
             <h3>{props.title}</h3>
             {props.sale ? <strong>${props.sale ? props.price - (props.price * (props.sale / 100)) : props.price} <span className="text-red-500">{`-(${props.sale}%)`}</span></strong> : <strong>${props.price}</strong>}

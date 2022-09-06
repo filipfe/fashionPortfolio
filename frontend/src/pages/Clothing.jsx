@@ -2,6 +2,7 @@ import { useLocation } from "react-router"
 import { useState, useEffect } from "react"
 import axios from 'axios'
 import { Link } from "react-router-dom"
+import sale from '../assets/sale.svg'
 
 const filters = [
     'Jacket',
@@ -34,7 +35,7 @@ export default function Clothing() {
         return (
             <aside className="hidden pt-[3rem] md:pt-[1in] md:block">
                 <nav className="flex flex-col gap-4">
-                    {filters.map(filter => <a className={`${filtered.filter === filter ? 'text-darkPrimary' : ''} cursor-pointer`} key={filter} onClick={() => setFiltered({filter: filter, clothes: clothes.filter(cloth => cloth.type === filter.toLowerCase())})}>{filter}</a>)}
+                    {filters.map(filter => <a className={`${filtered.filter === filter ? 'text-darkPrimary' : 'hover:text-darkPrimary'} cursor-pointer`} key={filter} onClick={() => setFiltered({filter: filter, clothes: clothes.filter(cloth => cloth.type === filter.toLowerCase())})}>{filter}</a>)}
                 </nav>
             </aside>
         )
@@ -58,7 +59,8 @@ export default function Clothing() {
 
 const Cloth = (props) => {
     return (
-        <Link className='block no-underline' to={`/clothing/${props.id}`}>
+        <Link className='block relative no-underline' to={`/clothing/${props.id}`}>
+            {props.sale ? <img className="absolute max-w-[3rem] left-3 top-3" src={sale} alt="sale" /> : <></> }
             <div className='h-[4in] md:h-[4.5in] bg-[#BDBDBD] flex justify-center items-center'>
                 <img className="max-w-[90%] max-h-[90%]" src={`/images/${props.image.split('/').pop()}`} alt='' />
             </div>

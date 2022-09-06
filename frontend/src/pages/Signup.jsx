@@ -24,10 +24,13 @@ function Form() {
         password: ''
     })
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
         if(alert) {
             return
+        } else {
+            const response = await axios.post('/api/signup', {...credentials})
+            console.log(response)
         }
     }
 

@@ -13,7 +13,7 @@ export default function Home() {
                 <p className='my-4 font-medium lg:my-8 lg:text-xl'>Wear newest clothes and become friends with fashion</p>
                 <Link to='/clothing' className="bg-primary lg:text-xl lg:py-3 lg:px-8 py-2 px-6 font-semibold mt-4 relative max-w-[12rem] lg:max-w-[2.5in]">Make it happen<div className="bg-black absolute right-0 top-0 bottom-0 w-10 translate-x-full flex items-center justify-center"><img className="max-w-[50%]" src={arrow} alt="" /></div></Link>
             </div>
-            <img className="max-h-[50%] absolute bottom-0 right-0 mt-[6in] lg:max-w-[60%] lg:max-h-[100%]" src={woman} alt='Woman buying' />
+            <img className="max-h-[50%] absolute bottom-0 right-0 lg:max-w-[60%] lg:max-h-[100%]" src={woman} alt='Woman buying' />
         </section>
     )
 }
