@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { inputStyles } from "./Signup"
 import { login, logout } from "../reducers/auth"
-import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { useState, useEffect } from "react"
+import axios from "axios"
 
 export default function Login() {
     return (
@@ -16,24 +17,32 @@ export default function Login() {
 }
 
 function Form() {
-    const { logged } = useSelector(state => state.login.value)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [credentials, setCredentials] = useState({
+        email: '',
+        password: ''
+    })
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
-        dispatch(login())
+        const response = await axios.post('/api/login', JSON.stringify(credentials), {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if(response.status === 200) {
+            dispatch(login())
+            return navigate('/profile')
+        }
     }
 
     return (
-        !logged ? <form onSubmit={handleSubmit} className='flex flex-col gap-4 my-4'>
-                        <input className={inputStyles} type='email' name='email' placeholder="Email" />
-                        <input className={inputStyles} type='password' name='password' placeholder="Password" />
-                        <button type="submit" className='w-full bg-[#E0AFA0] text-white rounded-md py-2 font-medium'>Log in</button>
-                        <span className="text-sm">Don't have an account? <Link to='/signup' className="text-[#E0AFA0]">Sign up</Link></span>
-                    </form> :
-                    <div className="gap-4 mt-4 flex-col flex">
-                        Thanks for logging!
-                        <button onClick={() => dispatch(logout())}>Log Out</button>
-                    </div>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4 my-4'>
+            <input className={inputStyles} required onChange={e => setCredentials({...credentials, email: e.target.value})} type='email' name='email' placeholder="Email" />
+            <input className={inputStyles} required onChange={e => setCredentials({...credentials, password: e.target.value})} type='password' name='password' placeholder="Password" />
+            <button type="submit" className='w-full bg-[#E0AFA0] text-white rounded-md py-2 font-medium'>Log in</button>
+            <span className="text-sm">Don't have an account? <Link to='/signup' className="text-[#E0AFA0]">Sign up</Link></span>
+        </form> 
     ) 
 }

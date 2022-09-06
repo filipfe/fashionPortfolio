@@ -41,5 +41,7 @@ class LoginView(APIView):
         if not user.check_password(password):
             raise AuthenticationFailed('Incorrect password')
 
-        return Response(user)
+        return Response({
+            'message': 'success'
+        })
 
