@@ -28,6 +28,9 @@ function Form() {
         e.preventDefault()
         if(alert) {
             return
+        } else {
+            const response = await axios.post('/api/signup', {...credentials})
+            console.log(response)
         }
     }
 
