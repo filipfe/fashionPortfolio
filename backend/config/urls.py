@@ -27,7 +27,7 @@ urlpatterns = [
     path('clothing/trending', views.index),
     path('clothing/new', views.index),
     path('contact', views.index),
-    #path('signup', views.index),
+    path('signup', views.index),
     path('login', views.index),
     path('cart', views.index),
     path('profile', views.index),
