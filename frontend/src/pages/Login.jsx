@@ -1,7 +1,7 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { inputStyles } from "./Signup"
 import { login, logout } from "../reducers/auth"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useState, useEffect } from "react"
 import axios from "axios"
 
@@ -19,6 +19,8 @@ export default function Login() {
 function Form() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
+    const info = useSelector(state => state.login)
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
@@ -32,10 +34,19 @@ function Form() {
             }
         })
         if(response.status === 200) {
-            dispatch(login())
+            const user = await axios.get('/api/user')
+                .then(res => res.data)
+                .then(data => dispatch(login(data)))
             return navigate('/profile')
         }
     }
+
+    useEffect(() => {
+        console.log(info)
+    }, [info]);
+    useEffect(() => {
+        console.log(location)
+    }, [location]);
 
     return (
         <form onSubmit={handleSubmit} className='flex flex-col gap-4 my-4'>
