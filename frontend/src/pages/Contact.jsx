@@ -1,6 +1,7 @@
 import { inputStyles } from "./Signup"
 import contact from '../assets/contact.png'
 import FormHeader from "../components/FormHeader"
+import buttonStyles from "../utils/buttonStyles"
 
 export default function Contact() {
     return (
@@ -22,7 +23,7 @@ function Form() {
             <input className={inputStyles} required type='email' name='email' placeholder="Email" />
             <input className={inputStyles} required type='tel' name='phone' placeholder="Phone Number" />
             <textarea className={`${inputStyles} resize-y min-h-[4rem]`} required placeholder="Message" />
-            <button type="submit" className='w-full bg-primary text-white mt-6 rounded-md lg:max-w-[max-content] px-10 py-3 font-medium'>Send message</button>
+            <button type="submit" className={`${buttonStyles} mt-6 px-10 font-medium`}>Send message</button>
         </form> 
     ) 
 }

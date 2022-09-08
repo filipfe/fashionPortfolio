@@ -1,8 +1,9 @@
 import { Link, useResolvedPath, useMatch } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
-import { useState, useEffect, useCallback } from 'react'
-import { cartImg, profile, heart, searchImg } from '../assets/navbar'
+import { useState, useEffect } from 'react'
+import { cartImg, profile, heart } from '../assets/navbar'
 import { useSelector } from 'react-redux/es/exports'
+import buttonStyles from '../utils/buttonStyles'
 
 const pages = [
     'Women',
@@ -53,12 +54,12 @@ export default function Header() {
                     </> : <></> }
                     <NavLink path='/cart'>
                         <img src={cartImg} alt="cart" />
-                        {quantity > 0 ? <div className='rounded-[50%] flex justify-center items-center bg-primary absolute h-[1.2rem] w-[1.2rem] text-sm bottom-[-4px] right-[-4px] text-white'>{quantity}</div> : <></>}
+                        {quantity > 0 ? <div className='rounded-[50%] flex justify-center items-center bg-primary absolute h-[1.4rem] w-[1.4rem] text-sm bottom-[-10px] right-[-10px] text-white'>{quantity}</div> : <></>}
                     </NavLink>
                 </div>
                 {authorized ? <></> : <div className='login flex flex-col gap-4 items-center lg:flex-row'>
                     <Link className='border-primary rounded-md border-[1px] text-sm py-3 px-6 text-primary font-bold min-w-[max-content]' to='/login'>Log In</Link>
-                    <Link className='bg-primary rounded-md py-3 px-6 text-sm text-white font-bold min-w-[max-content]' to='/signup'>Sign Up</Link>
+                    <Link className={`${buttonStyles} text-sm rounded-md`} to='/signup'>Sign Up</Link>
                 </div>}
             </nav>
             <div className='burger flex flex-col relative lg:hidden h-5 w-7 justify-between cursor-pointer' onClick={() => setNav(prev => !prev)}>

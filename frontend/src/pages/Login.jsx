@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { inputStyles } from "./Signup"
+import buttonStyles from "../utils/buttonStyles"
 import { login } from "../reducers/auth"
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react"
@@ -51,7 +52,7 @@ function Form() {
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, email: e.target.value})} type='email' name='email' placeholder="Email" />
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, password: e.target.value})} type='password' name='password' placeholder="Password" />
             <span className="text-sm font-medium">Don't have an account? <Link to='/signup' className="text-primary font-bold">Sign up</Link></span>
-            <button type="submit" className='w-full bg-primary text-white mt-6 rounded-md lg:max-w-[max-content] px-10 py-3 font-medium'>Log in</button>
+            <button type="submit" className={`${buttonStyles} mt-6 px-10 font-medium`}>Log in</button>
         </form> 
     ) 
 }

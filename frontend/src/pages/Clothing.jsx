@@ -5,23 +5,40 @@ import { Link } from "react-router-dom"
 import SearchBar from "../components/SearchBar"
 import sale from '../assets/sale.svg'
 import arrow from '../assets/arrow-down.svg'
+import clear from '../assets/x.svg'
 
 const filters = [
-    'Jacket',
+    'Jackets',
     'Shoes',
-    'Tshirt',
+    'Tshirts',
     'Hoodies',
     'Trousers'
 ]
 
+const sorts = {
+    price: ['Ascending', 'Descending']
+}
+
 export default function Clothing() {
     const [clothes, setClothes] = useState([])
+    const [sort, setSort] = useState({
+        price: ''
+    })
     const [filtered, setFiltered] = useState({
         filter: '',
         clothes: []
     })
 
     const location = useLocation()
+
+    // sorting logic
+
+    useEffect(() => {
+        if(sort.price === 'Ascending') filtered.clothes.length === 0 ? setFiltered({...filtered, clothes: clothes.sort((a, b) => a.price - b.price)}) : setFiltered({...filtered, clothes: filtered.clothes.sort((a, b) => a.price - b.price)})
+        if(sort.price === 'Descending') filtered.clothes.length === 0 ? setFiltered({...filtered, clothes: clothes.sort((a, b) => b.price - a.price)}) : setFiltered({...filtered, clothes: filtered.clothes.sort((a, b) => b.price - a.price)})
+    }, [sort])
+
+    // fetching api
 
     useEffect(() => {
         setFiltered({clothes: [], filter: ''})
@@ -33,16 +50,21 @@ export default function Clothing() {
             .catch(error => console.log(error.message))
     }, [location])
 
+    // filter
+
     const AsideFilter = () => {
         return (
             <aside className="hidden md:block">
                 <h2 className="text-3xl font-bold mb-8">Filters</h2>
-                <nav className="flex flex-col gap-4">
+                <nav className="flex flex-col gap-4 mb-8">
                     {filters.map(filter => <a className={`${filtered.filter === filter ? 'text-primary font-bold' : 'hover:text-primary'} cursor-pointer`} key={filter} onClick={() => setFiltered({filter: filter, clothes: clothes.filter(cloth => cloth.type === filter.toLowerCase())})}>{filter}</a>)}
                 </nav>
+                <a className="text-primary cursor-pointer font-medium flex items-center" onClick={() => setFiltered({clothes: [], filter: ''})}><img className="max-h-[1em] mr-2" src={clear} alt='x' />Clear</a>
             </aside>
         )
     }
+
+    // sorter
 
     const Sort = () => {
         const [active, setActive] = useState(false)
@@ -53,8 +75,7 @@ export default function Clothing() {
                 {active ? <div className='absolute left-0 lg:left-auto lg:right-0 mt-2 rounded p-4 flex flex-col bg-white gap-4 border-[1px] border-[#E6E6E6]'>
                     <h4 className="font-bold">Price</h4>
                     <ul className="text-[#8B8B8B] flex flex-col font-medium gap-1">
-                        <li onClick={() => filtered.clothes.sort((a, b) => a.price - b.price)}>Ascending</li>
-                        <li onClick={() => filtered.clothes.sort((a, b) => b.price - a.price)}>Descending</li>
+                        {sorts.price.map(price => <li className={`cursor-pointer ${sort.price === price ? 'text-primary font-bold' : 'hover:text-primary'}`} onClick={() => setSort({...sort, price: price})}>{price}</li>)}
                     </ul>
                 </div> : <></>}
             </div>

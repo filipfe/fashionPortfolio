@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       colors: {
         primary: '#3552DC',
+        darkPrimary: '#2A42AF'
       },
       gridTemplateColumns: {
         autoFit: 'repeat(auto-fit, minmax(280px, 1fr))',

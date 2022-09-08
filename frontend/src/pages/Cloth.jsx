@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux"
 import { add } from "../reducers/cart"
+import buttonStyles from "../utils/buttonStyles"
 
 export default function Cloth(props) {
     return (
@@ -29,5 +30,5 @@ export default function Cloth(props) {
 
 const AddToCart = ({ cloth }) => {
     const dispatch = useDispatch()
-    return <button className="bg-primary mx-auto text-white text-md font-bold mt-4 max-w-[max-content] rounded py-3 px-8" onClick={() => dispatch(add({...cloth, quantity: 1}))}>Add to cart</button>
+    return <button className={`${buttonStyles} px-8 mt-4 text-md mx-auto rounded`} onClick={() => dispatch(add({...cloth, quantity: 1}))}>Add to cart</button>
 } 
