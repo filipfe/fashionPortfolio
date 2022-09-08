@@ -29,5 +29,5 @@ export default function Cloth(props) {
 
 const AddToCart = ({ cloth }) => {
     const dispatch = useDispatch()
-    return <button className="bg-darkPrimary mx-auto text-white text-lg font-bold max-w-[max-content] py-2 px-6" onClick={() => dispatch(add({...cloth, quantity: 1}))}>Add to cart</button>
+    return <button className="bg-primary mx-auto text-white text-lg font-bold max-w-[max-content] py-2 px-6" onClick={() => dispatch(add({...cloth, quantity: 1}))}>Add to cart</button>
 } 

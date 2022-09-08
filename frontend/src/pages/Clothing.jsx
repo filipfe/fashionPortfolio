@@ -2,7 +2,9 @@ import { useLocation } from "react-router"
 import { useState, useEffect } from "react"
 import axios from 'axios'
 import { Link } from "react-router-dom"
+import SearchBar from "../components/SearchBar"
 import sale from '../assets/sale.svg'
+import arrow from '../assets/arrow-down.svg'
 
 const filters = [
     'Jacket',
@@ -33,24 +35,44 @@ export default function Clothing() {
 
     const AsideFilter = () => {
         return (
-            <aside className="hidden pt-[3rem] md:pt-[1in] md:block">
+            <aside className="hidden md:block">
+                <h2 className="text-3xl font-bold mb-8">Filters</h2>
                 <nav className="flex flex-col gap-4">
-                    {filters.map(filter => <a className={`${filtered.filter === filter ? 'text-darkPrimary' : 'hover:text-darkPrimary'} cursor-pointer`} key={filter} onClick={() => setFiltered({filter: filter, clothes: clothes.filter(cloth => cloth.type === filter.toLowerCase())})}>{filter}</a>)}
+                    {filters.map(filter => <a className={`${filtered.filter === filter ? 'text-primary font-bold' : 'hover:text-primary'} cursor-pointer`} key={filter} onClick={() => setFiltered({filter: filter, clothes: clothes.filter(cloth => cloth.type === filter.toLowerCase())})}>{filter}</a>)}
                 </nav>
             </aside>
         )
     }
 
+    const Sort = () => {
+        const [active, setActive] = useState(false)
+        const Arrow = () => <img className={`${active ? 'rotate-90' : ''} transition-all ml-2`} src={arrow} alt="" />
+        return ( 
+            <div className="relative">
+                <h3 className="font-bold flex items-center" onClick={() => setActive(prev => !prev)}>Sort by <Arrow /></h3>
+                {active ? <div className='absolute left-0 lg:left-auto lg:right-0 mt-2 rounded p-4 flex flex-col gap-4 border-[1px] border-[#E6E6E6]'>
+                    <h4 className="font-bold">Price</h4>
+                    <ul className="text-[#8B8B8B] flex flex-col font-medium gap-1">
+                        <li onClick={() => filtered.clothes.sort((a, b) => a < b)}>Ascending</li>
+                        <li onClick={() => filtered.clothes.sort((a, b) => a > b)}>Descending</li>
+                    </ul>
+                </div> : <></>}
+            </div>
+        )
+    }
+
     return (
         <section className="padding-x padding-y">
-            <div className='md:grid-cols-clothes md:grid'>
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-8 md:gap-0">
+                <h1 className="font-bold text-4xl lg:text-5xl first-letter:capitalize">{location.pathname.split("/").pop()}</h1>
+                <SearchBar />
+                <Sort />
+            </div>
+            <div className='md:grid-cols-clothes md:grid mt-8 md:mt-20'>
                 <AsideFilter />
-                <div className='clothes-wrapper'>
-                    <h1 className="font-bold text-2xl mb-8 lg:text-3xl">Our {location.pathname === '/clothing/new' ? 'new ' : location.pathname === '/clothing/trending' ? 'trending ' : ''}clothing {location.pathname === "/clothing/men" ? 'for men' : location.pathname === "/clothing/women" ? 'for women' : location.pathname === "/clothing/collection" ? 'collection' : '' }</h1>
-                    <div className='clothes-grid flex flex-col gap-8 md:grid grid-cols-mobileAutoFit md:grid-cols-autoFit md:pl-8 md:border-l-[1px] md:border-[#BDBDBD]'>
-                        {filtered.clothes.length === 0 ? clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />) :
-                        filtered.clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />)}
-                    </div>
+                <div className='clothes-grid flex flex-col gap-8 md:grid grid-cols-mobileAutoFit md:grid-cols-autoFit md:pl-8 md:border-l-[1px] md:border-[#BDBDBD]'>
+                    {filtered.clothes.length === 0 ? clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />) :
+                    filtered.clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />)}
                 </div>
             </div>
         </section>

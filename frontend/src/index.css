@@ -14,11 +14,11 @@ body {
 }
 
 .padding-x {
-  padding: 0 6vw;
+  padding: 0 8vw;
 }
 
 .padding-x.padding-y {
-  padding: 1.3in 6vw;
+  padding: 1.3in 8vw;
 }
 
 

@@ -1,21 +1,22 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { inputStyles } from "./Signup"
-import { login, logout } from "../reducers/auth"
+import { login } from "../reducers/auth"
 import { useDispatch, useSelector } from "react-redux"
-import { useState, useEffect } from "react"
-import auth from "../assets/auth.png"
+import { useState } from "react"
+import { auth } from '../assets/form'
 import axios from "axios"
+import FormHeader from "../components/FormHeader"
 
 export default function Login() {
     return (
-        <section className='padding-x padding-y flex items-center h-screen justify-center xl:justify-start xl:grid xl:grid-cols-2'>
-            <div className='flex flex-col gap-6 min-w-[50%] xl:max-w-[70%] relative'>
-                <Link className="absolute top-[-20vh] left-0 font-medium" to='/'>Back</Link>
+        <section className='padding-x padding-y flex items-center h-screen justify-center lg:justify-start lg:grid lg:grid-cols-2'>
+            <div className='flex flex-col gap-6 min-w-[50%] lg:max-w-[70%] relative'>
+                <FormHeader />
                 <h2 className="text-6xl font-bold">Log in</h2>
                 <p className="font-medium text-xl text-[#707070]">And start exploring newest offerts</p>
                 <Form />
             </div>
-            <img className="hidden xl:block max-w-[55%] absolute bottom-0 right-0 max-h-screen" src={auth} alt='fashionable woman' />
+            <img className="hidden lg:block max-w-[50%] object-cover absolute top-0 bottom-0 right-0 h-screen" src={auth} alt='fashionable woman' />
         </section>
     )
 }

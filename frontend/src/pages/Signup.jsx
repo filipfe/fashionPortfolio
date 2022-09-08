@@ -1,21 +1,22 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import auth from "../assets/auth.png"
+import { auth } from '../assets/form'
 import axios from "axios"
+import FormHeader from "../components/FormHeader"
 
 const PWD_REGEX = /(?=.*[a-z])(?=.*[0-9])/
 
 export default function Signup() {
     return (
-        <section className='padding-x padding-y flex items-center h-screen justify-center xl:justify-start xl:grid xl:grid-cols-2'>
-            <div className='flex flex-col gap-6 min-w-[50%] xl:max-w-[70%] relative'>
-                <Link className="absolute top-[-12vh] left-0 font-medium" to='/'>Back</Link>
+        <section className='padding-x padding-y flex items-center h-screen justify-center lg:justify-start lg:grid lg:grid-cols-2'>
+            <div className='flex flex-col gap-6 min-w-[50%] lg:max-w-[70%] relative'>
+                <FormHeader />
                 <h2 className="text-6xl font-bold">Create account</h2>
                 <p className="font-medium text-xl text-[#707070]">And join over 100,000 active users all over the world!</p>
                 <Form />
             </div>
-            <img className="hidden xl:block max-w-[55%] absolute bottom-0 right-0 max-h-screen" src={auth} alt='fashionable woman' />
+            <img className="hidden lg:block max-w-[50%] object-cover absolute bottom-0 right-0 h-screen" src={auth} alt='fashionable woman' />
         </section>
     )
 }
@@ -66,7 +67,7 @@ function Form() {
             <input className={`${inputStyles} ${!alert.password ? 'focus:border-red-500 focus:border-2': 'focus:border-green-500 focus:border-2'}`} required value={credentials.password} onChange={e => setCredentials({...credentials, password: e.target.value})} type='password' name='password' placeholder="Password" />
             {alert.info ? <div className='alert text-lg text-red-500'>{alert.info}</div> : <></>}
             <span className="text-sm">Already have an account? <Link to='/login' className="text-primary font-bold">Log in</Link></span>
-            <button type="submit" className='w-full bg-primary text-white mt-6 rounded-md lg:max-w-[max-content] px-10 py-3 font-medium'>Create an account</button>
+            <button type="submit" className='w-full bg-primary text-white mt-6 rounded-md max-w-[max-content] px-10 py-3 font-medium'>Create an account</button>
         </form>
     )
 }
