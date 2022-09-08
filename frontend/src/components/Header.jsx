@@ -15,7 +15,7 @@ const pages = [
 export default function Header() {
     const [nav, setNav] = useState(false)
     const [authorized, setAuthorized] = useState(false)
-    const login = useSelector(state => state.login.value)
+    const { logged } = useSelector(state => state.login)
     const { cart } = useSelector(state => state.cart)
     const location = useLocation()
     const [quantity, setQuantity] = useState(0)
@@ -34,9 +34,9 @@ export default function Header() {
         setQuantity(q)
     }, [cart])
 
-    useEffect(() => {
-        setNav(false)
-    }, [location])
+    useEffect(() => setNav(false), [location])
+
+    useEffect(() => setAuthorized(logged), [logged])
 
     return (
         <header className={`flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] bg-white padding-x shadow-sm fixed top-0 right-0 left-0 ${location.pathname.split('/').pop() === "login" || location.pathname.split('/').pop() === "signup" || location.pathname.split('/').pop() === "contact" ? 'hidden' : 'z-10'}`}>
@@ -47,17 +47,19 @@ export default function Header() {
                 {pages.map(page => <NavLink key={page} path={`/clothing/${page.toLowerCase()}`}>{page}</NavLink>)}
                 <NavLink path='/contact'>Contact us</NavLink>
                 <div className='flex items-center gap-4 my-4 lg:my-0 2xl:gap-8 2xl:ml-[2vw] relative'>
-                    {/* <NavLink path='/profile/favourite'><img src={heart} alt='favourite' /></NavLink>
-                    <NavLink path='/profile'><img src={profile} alt='profile' /></NavLink> */}
+                    {authorized ? <>
+                        <NavLink path='/profile/favourite'><img src={heart} alt='favourite' /></NavLink>
+                        <NavLink path='/profile'><img src={profile} alt='profile' /></NavLink>
+                    </> : <></> }
                     <NavLink path='/cart'>
                         <img src={cartImg} alt="cart" />
                         {quantity > 0 ? <div className='rounded-[50%] flex justify-center items-center bg-primary absolute h-[1.2rem] w-[1.2rem] text-sm bottom-[-4px] right-[-4px] text-white'>{quantity}</div> : <></>}
                     </NavLink>
                 </div>
-                <div className='login flex flex-col gap-4 items-center lg:flex-row'>
+                {authorized ? <></> : <div className='login flex flex-col gap-4 items-center lg:flex-row'>
                     <Link className='border-primary rounded-md border-[1px] text-sm py-3 px-6 text-primary font-bold min-w-[max-content]' to='/login'>Log In</Link>
                     <Link className='bg-primary rounded-md py-3 px-6 text-sm text-white font-bold min-w-[max-content]' to='/signup'>Sign Up</Link>
-                </div>
+                </div>}
             </nav>
             <div className='burger flex flex-col relative lg:hidden h-5 w-7 justify-between cursor-pointer' onClick={() => setNav(prev => !prev)}>
                 <div style={nav ? {position: 'absolute', top: '50%', transform: 'translateY(-50%) rotate(45deg)'} : {}} className={lineStyle}></div>

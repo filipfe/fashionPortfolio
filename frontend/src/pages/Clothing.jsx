@@ -53,8 +53,8 @@ export default function Clothing() {
                 {active ? <div className='absolute left-0 lg:left-auto lg:right-0 mt-2 rounded p-4 flex flex-col bg-white gap-4 border-[1px] border-[#E6E6E6]'>
                     <h4 className="font-bold">Price</h4>
                     <ul className="text-[#8B8B8B] flex flex-col font-medium gap-1">
-                        <li onClick={() => filtered.clothes.sort((a, b) => a < b)}>Ascending</li>
-                        <li onClick={() => filtered.clothes.sort((a, b) => a > b)}>Descending</li>
+                        <li onClick={() => filtered.clothes.sort((a, b) => a.price - b.price)}>Ascending</li>
+                        <li onClick={() => filtered.clothes.sort((a, b) => b.price - a.price)}>Descending</li>
                     </ul>
                 </div> : <></>}
             </div>
