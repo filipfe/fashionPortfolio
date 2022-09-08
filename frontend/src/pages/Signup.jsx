@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { auth } from '../assets/form'
+import buttonStyles from "../utils/buttonStyles"
 import axios from "axios"
 import FormHeader from "../components/FormHeader"
 
@@ -67,7 +68,7 @@ function Form() {
             <input className={`${inputStyles} ${!alert.password ? 'focus:border-red-500 focus:border-2': 'focus:border-green-500 focus:border-2'}`} required value={credentials.password} onChange={e => setCredentials({...credentials, password: e.target.value})} type='password' name='password' placeholder="Password" />
             {alert.info ? <div className='alert text-lg text-red-500'>{alert.info}</div> : <></>}
             <span className="text-sm">Already have an account? <Link to='/login' className="text-primary font-bold">Log in</Link></span>
-            <button type="submit" className='w-full bg-primary text-white mt-6 rounded-md max-w-[max-content] px-10 py-3 font-medium'>Create an account</button>
+            <button type="submit" className={`${buttonStyles} mt-6 px-10 font-medium`}>Create an account</button>
         </form>
     )
 }

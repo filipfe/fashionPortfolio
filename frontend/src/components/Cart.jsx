@@ -2,15 +2,17 @@ import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { add, remove } from "../reducers/cart"
+import buttonStyles from "../utils/buttonStyles"
 
 export default function Cart() {
     const { cart } = useSelector(state => state.cart)
+    const { logged } = useSelector(state => state.login)
+    const [authorized, setAuthorized] = useState(false)
     const [items, setItems] = useState([])
     const [summary, setSummary] = useState(0)
 
-    useEffect(() => {
-        setItems(cart)
-    }, [cart])
+    useEffect(() => setItems(cart), [cart])
+    useEffect(() => setAuthorized(logged), [logged])
 
     useEffect(() => {
         let summaryPrice = 0;
@@ -32,7 +34,7 @@ export default function Cart() {
             <div className="summary grid grid-cols-2 grid-rows-2 border-[#BDBDBD] border-t-2">
                 <h2 className="text-xl font-bold pt-8">Total</h2>
                 <strong className="text-2xl col-first">${summary}</strong>
-                <a className="row-span col-second self-center ml-auto bg-primary text-white text-lg font-bold w-[max-content] py-2 px-6" path='/profile/buy'>Proceed payment</a>
+                <Link to={authorized ? '/profile/payment' : '/login'} className={`${buttonStyles} mt-6 px-10 font-medium row-span col-second self-center ml-auto text-md`}>Proceed payment</Link>
             </div> : <p>Nothing's there! Go ahead and <Link className='text-primary font-bold' to='/clothing'>choose some clothing.</Link></p>
             }
         </div>
@@ -46,7 +48,7 @@ const CartItem = props => {
 
     return (
         <div className="p-4 flex gap-6 border-t-2 border-[#BDBDBD]">
-            <div className='h-[3rem] w-[3rem] bg-[#BDBDBD] flex justify-center items-center'>
+            <div className='h-[3rem] w-[3rem] bg-[#F2F2F2] flex justify-center items-center'>
                 <img className="max-w-[90%] max-h-[90%]" src={props.image} alt='' />
             </div>
             <h3>{props.title}</h3>
