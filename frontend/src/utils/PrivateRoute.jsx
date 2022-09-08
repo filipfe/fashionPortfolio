@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useSelector } from "react-redux"
 import { Navigate } from "react-router"
 
 export default function PrivateRoute({children}) {
-    const [authorized, setAuthorized] = useState(false)
-    return authorized ? children : <Navigate to='/login' />
+    const { logged } = useSelector(state => state.login)
+    console.log(logged)
+    return logged ? children : <Navigate to='/login' />
 }

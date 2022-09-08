@@ -1,3 +1,11 @@
+import { useSelector } from "react-redux"
+
 export default function Profile() {
-    return <h1>Profile</h1>
+    const { info } = useSelector(state => state.login)
+
+    return (
+        <section className="padding-y padding-x">
+            <h1 className="text-4xl font-bold">Hi <span className="text-primary">{info.last_name}</span></h1>
+        </section>
+    )
 }

@@ -1,39 +1,57 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { inputStyles } from "./Signup"
-import { login, logout } from "../reducers/auth"
+import { login } from "../reducers/auth"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
+import { useState } from "react"
+import { auth } from '../assets/form'
+import axios from "axios"
+import FormHeader from "../components/FormHeader"
 
 export default function Login() {
     return (
-        <section className='padding-x padding-y justify-center flex'>
-            <div className='w-full shadow-lg px-6 py-10 text-center rounded-2xl max-w-[3.5in]'>
-                <h2 className="text-3xl font-semibold">Log In</h2>
+        <section className='padding-x padding-y flex items-center h-screen justify-center lg:justify-start lg:grid lg:grid-cols-2'>
+            <div className='flex flex-col gap-6 min-w-[50%] lg:max-w-[70%] relative'>
+                <FormHeader />
+                <h2 className="text-6xl font-bold">Log in</h2>
+                <p className="font-medium text-xl text-[#707070]">And start exploring newest offerts</p>
                 <Form />
             </div>
+            <img className="hidden lg:block max-w-[50%] object-cover absolute top-0 bottom-0 right-0 h-screen" src={auth} alt='fashionable woman' />
         </section>
     )
 }
 
 function Form() {
-    const { logged } = useSelector(state => state.login.value)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const location = useLocation()
+    const info = useSelector(state => state.login)
+    const [credentials, setCredentials] = useState({
+        email: '',
+        password: ''
+    })
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
-        dispatch(login())
+        const response = await axios.post('/api/login', JSON.stringify(credentials), {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if(response.status === 200) {
+            const user = await axios.get('/api/user')
+                .then(res => res.data)
+                .then(data => dispatch(login(data)))
+            return navigate('/profile')
+        }
     }
 
     return (
-        !logged ? <form onSubmit={handleSubmit} className='flex flex-col gap-4 my-4'>
-                        <input className={inputStyles} type='email' name='email' placeholder="Email" />
-                        <input className={inputStyles} type='password' name='password' placeholder="Password" />
-                        <button type="submit" className='w-full bg-[#E0AFA0] text-white rounded-md py-2 font-medium'>Log in</button>
-                        <span className="text-sm">Don't have an account? <Link to='/signup' className="text-[#E0AFA0]">Sign up</Link></span>
-                    </form> :
-                    <div className="gap-4 mt-4 flex-col flex">
-                        Thanks for logging!
-                        <button onClick={() => dispatch(logout())}>Log Out</button>
-                    </div>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-6 my-4 xl:mt-6'>
+            <input className={inputStyles} required onChange={e => setCredentials({...credentials, email: e.target.value})} type='email' name='email' placeholder="Email" />
+            <input className={inputStyles} required onChange={e => setCredentials({...credentials, password: e.target.value})} type='password' name='password' placeholder="Password" />
+            <span className="text-sm font-medium">Don't have an account? <Link to='/signup' className="text-primary font-bold">Sign up</Link></span>
+            <button type="submit" className='w-full bg-primary text-white mt-6 rounded-md lg:max-w-[max-content] px-10 py-3 font-medium'>Log in</button>
+        </form> 
     ) 
 }

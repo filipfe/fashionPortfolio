@@ -32,8 +32,8 @@ export default function Cart() {
             <div className="summary grid grid-cols-2 grid-rows-2 border-[#BDBDBD] border-t-2">
                 <h2 className="text-xl font-bold pt-8">Total</h2>
                 <strong className="text-2xl col-first">${summary}</strong>
-                <a className="row-span col-second self-center ml-auto bg-darkPrimary text-white text-lg font-bold w-[max-content] py-2 px-6" path='/profile/buy'>Proceed payment</a>
-            </div> : <p>Nothing's there! Go ahead and <Link className='text-darkPrimary' to='/clothing'>choose some clothing.</Link></p>
+                <a className="row-span col-second self-center ml-auto bg-primary text-white text-lg font-bold w-[max-content] py-2 px-6" path='/profile/buy'>Proceed payment</a>
+            </div> : <p>Nothing's there! Go ahead and <Link className='text-primary font-bold' to='/clothing'>choose some clothing.</Link></p>
             }
         </div>
     )
