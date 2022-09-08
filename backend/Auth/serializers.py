@@ -20,3 +20,8 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+'''class FavouritesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('favourites',)'''

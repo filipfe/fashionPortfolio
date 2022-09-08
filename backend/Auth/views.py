@@ -1,21 +1,22 @@
 from django.shortcuts import render
+from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
+from .serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework import generics
-from .serializers import UserSerializer
 from .models import User
 import jwt, datetime
 
 # Create your views here.
 
-class RegisterView(generics.ListCreateAPIView):
+class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
 
-class LoginView(generics.ListCreateAPIView):
+class LoginView(APIView):
     def post(self, request):
         email = request.data['email']
         password = request.data['password']
@@ -45,10 +46,11 @@ class LoginView(generics.ListCreateAPIView):
 
         return response
 
+class UserView(APIView):
 
-class UserView(generics.ListCreateAPIView):
     def get(self, request):
         token = request.COOKIES.get('jwt')
+
 
         if not token:
             raise AuthenticationFailed('Unauthenticated!')
@@ -62,14 +64,16 @@ class UserView(generics.ListCreateAPIView):
 
         return Response(serializer.data)
 
-
-class LogoutView(generics.ListCreateAPIView):
+class LogoutView(APIView):
     def post(self, request):
         response = Response()
         response.delete_cookie('jwt')
         response.data = {
             'message': 'success'
         }
-
         return response
+
+'''class FavouritesView(generics.ListCreateAPIView):
+    queryset = User.objects.values('favourites')
+    serializer_class = UserSerializer'''
 
