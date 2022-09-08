@@ -49,8 +49,8 @@ export default function Clothing() {
         const Arrow = () => <img className={`${active ? 'rotate-90' : ''} transition-all ml-2`} src={arrow} alt="" />
         return ( 
             <div className="relative">
-                <h3 className="font-bold flex items-center" onClick={() => setActive(prev => !prev)}>Sort by <Arrow /></h3>
-                {active ? <div className='absolute left-0 lg:left-auto lg:right-0 mt-2 rounded p-4 flex flex-col gap-4 border-[1px] border-[#E6E6E6]'>
+                <h3 className="font-bold cursor-pointer flex items-center" onClick={() => setActive(prev => !prev)}>Sort by <Arrow /></h3>
+                {active ? <div className='absolute left-0 lg:left-auto lg:right-0 mt-2 rounded p-4 flex flex-col bg-white gap-4 border-[1px] border-[#E6E6E6]'>
                     <h4 className="font-bold">Price</h4>
                     <ul className="text-[#8B8B8B] flex flex-col font-medium gap-1">
                         <li onClick={() => filtered.clothes.sort((a, b) => a < b)}>Ascending</li>
@@ -63,7 +63,7 @@ export default function Clothing() {
 
     return (
         <section className="padding-x padding-y">
-            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-8 md:gap-0">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-8 md:gap-0 relative z-10">
                 <h1 className="font-bold text-4xl lg:text-5xl first-letter:capitalize">{location.pathname.split("/").pop()}</h1>
                 <SearchBar />
                 <Sort />
@@ -83,7 +83,7 @@ const Cloth = (props) => {
     return (
         <Link className='block relative no-underline' to={`/clothing/${props.id}`}>
             {props.sale ? <img className="absolute max-w-[3rem] left-3 top-3" src={sale} alt="sale" /> : <></> }
-            <div className='h-[4in] md:h-[4.5in] bg-[#BDBDBD] flex justify-center items-center'>
+            <div className='h-[4in] md:h-[4.5in] bg-[#F2F2F2] flex justify-center items-center'>
                 <img className="max-w-[90%] max-h-[90%]" src={`/images/${props.image.split('/').pop()}`} alt='' />
             </div>
             <h3 className='text-center text-xl my-2'>{props.title}</h3>

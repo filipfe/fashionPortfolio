@@ -50,7 +50,7 @@ function Form() {
         <form onSubmit={handleSubmit} className='flex flex-col gap-6 my-4 xl:mt-6'>
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, email: e.target.value})} type='email' name='email' placeholder="Email" />
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, password: e.target.value})} type='password' name='password' placeholder="Password" />
-            <span className="text-sm font-medium">Don't have an account? <Link to='/signup' className="text-primary font-bold">Create account</Link></span>
+            <span className="text-sm font-medium">Don't have an account? <Link to='/signup' className="text-primary font-bold">Sign up</Link></span>
             <button type="submit" className='w-full bg-primary text-white mt-6 rounded-md lg:max-w-[max-content] px-10 py-3 font-medium'>Log in</button>
         </form> 
     ) 

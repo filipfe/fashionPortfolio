@@ -10,7 +10,7 @@ export default function Home() {
                 <p className='font-medium text-[#707070] lg:my-8 lg:text-xl'>Wear newest clothes and become friends with fashion</p>
                 <Link to='/clothing' className="bg-primary rounded-md text-white lg:text-md py-3 px-10 font-medium mt-4 flex items-center relative max-w-[max-content]">Explore offers <img className='max-h-[.8em] ml-[1.2em]' src={arrow} alt='' /></Link>
             </div>
-            <img className='mt-16 lg:mt-[5vh]' src={main} alt="clothing" />
+            <img className='mt-24 lg:mt-[5vh]' src={main} alt="clothing" />
             <img className="hidden lg:block max-h-[1.4in] absolute left-0 bottom-[1rem]" src={dots} alt="" />
         </section>
     )

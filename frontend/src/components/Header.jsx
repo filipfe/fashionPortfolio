@@ -34,6 +34,9 @@ export default function Header() {
         setQuantity(q)
     }, [cart])
 
+    useEffect(() => {
+        setNav(false)
+    }, [location])
 
     return (
         <header className={`flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] bg-white padding-x shadow-sm fixed top-0 right-0 left-0 ${location.pathname.split('/').pop() === "login" || location.pathname.split('/').pop() === "signup" || location.pathname.split('/').pop() === "contact" ? 'hidden' : 'z-10'}`}>
@@ -53,7 +56,7 @@ export default function Header() {
                 </div>
                 <div className='login flex flex-col gap-4 items-center lg:flex-row'>
                     <Link className='border-primary rounded-md border-[1px] text-sm py-3 px-6 text-primary font-bold min-w-[max-content]' to='/login'>Log In</Link>
-                    <Link className='bg-primary rounded-md py-3 px-6 text-sm text-white font-bold min-w-[max-content]' to='/signup'>Create Account</Link>
+                    <Link className='bg-primary rounded-md py-3 px-6 text-sm text-white font-bold min-w-[max-content]' to='/signup'>Sign Up</Link>
                 </div>
             </nav>
             <div className='burger flex flex-col relative lg:hidden h-5 w-7 justify-between cursor-pointer' onClick={() => setNav(prev => !prev)}>
