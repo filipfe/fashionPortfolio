@@ -1,17 +1,21 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import auth from "../assets/auth.png"
 import axios from "axios"
 
 const PWD_REGEX = /(?=.*[a-z])(?=.*[0-9])/
 
 export default function Signup() {
     return (
-        <section className='padding-x padding-y flex justify-center'>
-            <div className='w-full shadow-lg px-6 py-10 text-center rounded-2xl max-w-[3.5in]'>
-                <h2 className="text-3xl font-semibold">Sign Up</h2>
+        <section className='padding-x padding-y flex items-center h-screen justify-center xl:justify-start xl:grid xl:grid-cols-2'>
+            <div className='flex flex-col gap-6 min-w-[50%] xl:max-w-[70%] relative'>
+                <Link className="absolute top-[-12vh] left-0 font-medium" to='/'>Back</Link>
+                <h2 className="text-6xl font-bold">Create account</h2>
+                <p className="font-medium text-xl text-[#707070]">And join over 100,000 active users all over the world!</p>
                 <Form />
             </div>
+            <img className="hidden xl:block max-w-[55%] absolute bottom-0 right-0 max-h-screen" src={auth} alt='fashionable woman' />
         </section>
     )
 }
@@ -55,16 +59,16 @@ function Form() {
     }, [credentials]);
 
     return (
-        <form className='flex flex-col gap-4 my-4' onSubmit={handleSubmit}>
+        <form className='flex flex-col gap-6 my-4 xl:mt-6' onSubmit={handleSubmit}>
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, first_name: e.target.value})} type='text' name='name' placeholder="First Name" />
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, last_name: e.target.value})} type='text' name='last-name' placeholder="Last Name" />
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, email: e.target.value})} type='email' name='email' placeholder="Email" />
             <input className={`${inputStyles} ${!alert.password ? 'focus:border-red-500 focus:border-2': 'focus:border-green-500 focus:border-2'}`} required value={credentials.password} onChange={e => setCredentials({...credentials, password: e.target.value})} type='password' name='password' placeholder="Password" />
             {alert.info ? <div className='alert text-lg text-red-500'>{alert.info}</div> : <></>}
-            <button className='w-full bg-[#E0AFA0] text-white rounded-md py-2 font-medium'>Create an account</button>
-            <span className="text-sm">Already have an account? <Link to='/login' className="text-[#E0AFA0]">Log in</Link></span>
+            <span className="text-sm">Already have an account? <Link to='/login' className="text-primary font-bold">Log in</Link></span>
+            <button type="submit" className='w-full bg-primary text-white mt-6 rounded-md lg:max-w-[max-content] px-10 py-3 font-medium'>Create an account</button>
         </form>
     )
 }
 
-export const inputStyles = 'bg-darkPrimary bg-opacity-30 py-3 px-4 rounded-md border-[1px] border-[#BDBDBD] outline-none'
+export const inputStyles = 'bg-[#FBFBFB] py-3 px-6 sm:px-10 max-w-full rounded-md border-[1px] border-[#E6E6E6] outline-none'

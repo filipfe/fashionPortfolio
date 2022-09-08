@@ -32,7 +32,7 @@ export default function Header() {
     const NavLink = ({ children, path }) => {
         const activePath = useResolvedPath(path)
         const isActive = useMatch({ path: `${activePath.pathname}/*`, end: true })
-        return <Link className={isActive ? 'text-darkPrimary font-bold' : 'hover:text-darkPrimary'} to={path} onClick={disableNav}>{children}</Link>
+        return <Link className={isActive ? 'text-primary font-bold lg:text-sm' : 'hover:text-primary lg:text-sm lg:font-medium'} to={path} onClick={disableNav}>{children}</Link>
     }
 
     useEffect(() => {
@@ -58,21 +58,25 @@ export default function Header() {
     }
 
     return (
-        <header className='flex justify-between items-center min-h-[5rem] bg-white padding-x shadow-md fixed top-0 right-0 left-0 z-10'>
+        <header className={`flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] bg-white padding-x shadow-sm fixed top-0 right-0 left-0 ${location.pathname.split('/').pop() === "login" || location.pathname.split('/').pop() === "signup" ? 'hidden' : 'z-10'}`}>
             <div className='logo font-medium'>
-                <Link to='/' onClick={disableNav}>fashionPortfolio.</Link>
+                <Link className='font-bold' to='/' onClick={disableNav}><span className='text-primary'>Fashionist</span>Icons</Link>
             </div>
             <nav className={`navbar flex gap-6 absolute top-0 left-[100%] xl:gap-10 lg:relative lg:justify-end lg:flex-row lg:h-auto lg:left-auto lg:transform-none lg:opacity-100 h-screen w-screen bg-white items-center flex-col opacity-0 justify-center ${nav ? '-translate-x-full opacity-100' : ''} transition duration-500`}>
-                {pages.map(page => <NavLink className='hover:text-[darkPrimary]' key={page} path={`/clothing/${page.toLowerCase()}`}>{page}</NavLink>)}
+                {pages.map(page => <NavLink key={page} path={`/clothing/${page.toLowerCase()}`}>{page}</NavLink>)}
                 <NavLink className='hover:text-[darkPrimary]' path='/contact'>Contact us</NavLink>
-                <div className='flex items-center gap-4 mt-4 lg:mt-0 2xl:gap-8 2xl:ml-[8vw] relative'>
+                <div className='flex items-center gap-4 my-4 lg:my-0 2xl:gap-8 2xl:ml-[2vw] relative'>
                     <a onClick={handleSearch}><img src={searchImg} alt='search' /></a>
-                    <NavLink path='/profile/favourite'><img src={heart} alt='favourite' /></NavLink>
-                    <NavLink path='/profile'><img src={profile} alt='profile' /></NavLink>
+                    {/* <NavLink path='/profile/favourite'><img src={heart} alt='favourite' /></NavLink>
+                    <NavLink path='/profile'><img src={profile} alt='profile' /></NavLink> */}
                     <NavLink path='/cart'>
                         <img src={cartImg} alt="cart" />
                         {quantity > 0 ? <div className='rounded-[50%] flex justify-center items-center bg-darkPrimary absolute h-[1.2rem] w-[1.2rem] text-sm bottom-[-4px] right-[-4px] text-white'>{quantity}</div> : <></>}
                     </NavLink>
+                </div>
+                <div className='login flex flex-col gap-4 items-center lg:flex-row'>
+                    <Link className='border-primary rounded-sm border-[1px] text-sm py-3 px-6 text-primary font-bold min-w-[max-content]' to='/login'>Log In</Link>
+                    <Link className='bg-primary rounded-sm py-3 px-6 text-sm text-white font-bold min-w-[max-content]' to='/signup'>Create Account</Link>
                 </div>
             </nav>
             <div className='burger flex flex-col relative lg:hidden h-5 w-7 justify-between cursor-pointer' onClick={() => setNav(prev => !prev)}>

@@ -3,15 +3,19 @@ import { inputStyles } from "./Signup"
 import { login, logout } from "../reducers/auth"
 import { useDispatch, useSelector } from "react-redux"
 import { useState, useEffect } from "react"
+import auth from "../assets/auth.png"
 import axios from "axios"
 
 export default function Login() {
     return (
-        <section className='padding-x padding-y justify-center flex'>
-            <div className='w-full shadow-lg px-6 py-10 text-center rounded-2xl max-w-[3.5in]'>
-                <h2 className="text-3xl font-semibold">Log In</h2>
+        <section className='padding-x padding-y flex items-center h-screen justify-center xl:justify-start xl:grid xl:grid-cols-2'>
+            <div className='flex flex-col gap-6 min-w-[50%] xl:max-w-[70%] relative'>
+                <Link className="absolute top-[-20vh] left-0 font-medium" to='/'>Back</Link>
+                <h2 className="text-6xl font-bold">Log in</h2>
+                <p className="font-medium text-xl text-[#707070]">And start exploring newest offerts</p>
                 <Form />
             </div>
+            <img className="hidden xl:block max-w-[55%] absolute bottom-0 right-0 max-h-screen" src={auth} alt='fashionable woman' />
         </section>
     )
 }
@@ -41,19 +45,12 @@ function Form() {
         }
     }
 
-    useEffect(() => {
-        console.log(info)
-    }, [info]);
-    useEffect(() => {
-        console.log(location)
-    }, [location]);
-
     return (
-        <form onSubmit={handleSubmit} className='flex flex-col gap-4 my-4'>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-6 my-4 xl:mt-6'>
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, email: e.target.value})} type='email' name='email' placeholder="Email" />
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, password: e.target.value})} type='password' name='password' placeholder="Password" />
-            <button type="submit" className='w-full bg-[#E0AFA0] text-white rounded-md py-2 font-medium'>Log in</button>
-            <span className="text-sm">Don't have an account? <Link to='/signup' className="text-[#E0AFA0]">Sign up</Link></span>
+            <span className="text-sm font-medium">Don't have an account? <Link to='/signup' className="text-primary font-bold">Create account</Link></span>
+            <button type="submit" className='w-full bg-primary text-white mt-6 rounded-md lg:max-w-[max-content] px-10 py-3 font-medium'>Log in</button>
         </form> 
     ) 
 }

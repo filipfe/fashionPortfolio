@@ -1,19 +1,16 @@
-import { arrow, woman } from "../assets/home"
+import { arrow, main } from "../assets/home"
 import { Link } from "react-router-dom"
 
 export default function Home() {
     return (
-        <section className="landing relative min-h-screen padding-y padding-x lg:grid lg:grid-cols-2">
-            <div className='min-h-full flex flex-col lg:mt-[5rem]'>
-                <div className='h-[2px] bg-black max-w-[20%] lg:max-w-[10%]' />
-                <h1 className='flex flex-col pt-8 gap-[.8em]'>
-                    <span className='font-medium text-3xl lg:text-4xl'>Feel trendy. </span>
-                    <span className="font-bold text-[2.5rem] lg:text-6xl leading-10">Feel authentic.</span>
-                </h1>
-                <p className='my-4 font-medium lg:my-8 lg:text-xl'>Wear newest clothes and become friends with fashion</p>
-                <Link to='/clothing' className="bg-primary lg:text-xl lg:py-3 lg:px-8 py-2 px-6 font-semibold mt-4 relative max-w-[12rem] lg:max-w-[2.5in]">Make it happen<div className="bg-black absolute right-0 top-0 bottom-0 w-10 translate-x-full flex items-center justify-center"><img className="max-w-[50%]" src={arrow} alt="" /></div></Link>
+        <section className="landing relative min-h-screen padding-y padding-x lg:grid lg:grid-cols-2 bg-[linear-gradient(180deg, rgba(53, 82, 220, 0.0043) -4.68%, rgba(53, 82, 220, 0.0258) 102.57%)]">
+            <div className='min-h-full flex flex-col gap-8 lg:mt-[5vh] lg:gap-2'>
+                <div className='h-[2px] bg-primary max-w-[20%] lg:mb-4' />
+                <h1 className='text-4xl md:leading-tight font-bold md:text-5xl xl:leading-[1.2em] xl:text-6xl'>Explore modern<br/> fashion trends<br /> become well dressed.</h1>
+                <p className='font-medium text-[#707070] lg:my-8 lg:text-xl'>Wear newest clothes and become friends with fashion</p>
+                <Link to='/clothing' className="bg-primary rounded-md text-white lg:text-md py-3 px-10 font-medium mt-4 flex items-center relative max-w-[max-content]">Explore offers <img className='max-h-[.8em] ml-[1.2em]' src={arrow} alt='' /></Link>
             </div>
-            <img className="max-h-[50%] absolute bottom-0 right-0 lg:max-w-[60%] lg:max-h-[100%]" src={woman} alt='Woman buying' />
+            <img className='mt-16 lg:mt-[5vh]' src={main} alt="clothing" />
         </section>
     )
 }

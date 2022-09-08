@@ -7,8 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#E8E0D5',
-        darkPrimary: '#E0AFA0'
+        primary: '#3552DC',
       },
       gridTemplateColumns: {
         autoFit: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -21,6 +20,9 @@ module.exports = {
       },
       gridRow: {
         span: '1 / 3'
+      },
+      screens: {
+        xl: '1420px'
       }
     },
   },

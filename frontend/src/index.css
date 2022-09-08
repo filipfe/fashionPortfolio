@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,7 +6,7 @@
 *::after,
 *::before {
   box-sizing: border-box;
-  font-family: 'Karma', sans-serif;
+  font-family: 'Satoshi', sans-serif;
 }
 
 body {
@@ -16,11 +14,11 @@ body {
 }
 
 .padding-x {
-  padding: 0 10vw;
+  padding: 0 6vw;
 }
 
 .padding-x.padding-y {
-  padding: 1.5in 10vw;
+  padding: 1.3in 6vw;
 }
 
 

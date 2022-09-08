@@ -1,7 +1,7 @@
 import arrow from './arrow.svg'
-import woman from './woman.png'
+import main from './main.png'
 
 export {
     arrow,
-    woman
+    main
 }
