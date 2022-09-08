@@ -31,7 +31,7 @@ urlpatterns = [
     path('login', views.index),
     path('cart', views.index),
     path('profile', views.index),
-    path('', include('api.urls')),
+    path('', include('ClothingApi.urls')),
     path('', include('Auth.urls')),
 ]
 
