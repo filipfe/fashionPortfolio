@@ -1,12 +1,13 @@
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { inputStyles } from "./Signup"
 import buttonStyles from "../utils/buttonStyles"
 import { login } from "../reducers/auth"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useState } from "react"
 import { auth } from '../assets/form'
 import axios from "axios"
 import FormHeader from "../components/FormHeader"
+import Loader from "../components/Loader"
 
 export default function Login() {
     return (
@@ -25,8 +26,7 @@ export default function Login() {
 function Form() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const location = useLocation()
-    const info = useSelector(state => state.login)
+    const [alert, setAlert] = useState('')
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
@@ -34,17 +34,23 @@ function Form() {
 
     const handleSubmit = async e => {
         e.preventDefault()
-        const response = await axios.post('/api/login', JSON.stringify(credentials), {
-            headers: {
-                'Content-Type': 'application/json'
+        setAlert('loading')
+        try {
+            const response = await axios.post('/api/login', JSON.stringify(credentials), {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if(response.status === 200) {
+                await axios.get('/api/user')
+                    .then(res => res.data)
+                    .then(data => dispatch(login(data)))
+                return navigate('/profile')
             }
-        })
-        if(response.status === 200) {
-            const user = await axios.get('/api/user')
-                .then(res => res.data)
-                .then(data => dispatch(login(data)))
-            return navigate('/profile')
+        } catch (err) {
+            setAlert(err.response?.data?.detail)
         }
+        
     }
 
     return (
@@ -52,7 +58,11 @@ function Form() {
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, email: e.target.value})} type='email' name='email' placeholder="Email" />
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, password: e.target.value})} type='password' name='password' placeholder="Password" />
             <span className="text-sm font-medium">Don't have an account? <Link to='/signup' className="text-primary font-bold">Sign up</Link></span>
-            <button type="submit" className={`${buttonStyles} mt-6 px-10 font-medium`}>Log in</button>
+            {alert !== 'loading' && alert ? <div className='alert text-lg text-red-500'>{alert}</div> : <></>}
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-0 md:justify-between">
+                <button type="submit" className={`${buttonStyles} mt-6 px-10 font-medium`}>Log in</button>
+                {alert === 'loading' ? <Loader /> : <></>}
+            </div>
         </form> 
     ) 
 }

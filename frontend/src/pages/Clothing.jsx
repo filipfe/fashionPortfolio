@@ -93,7 +93,7 @@ export default function Clothing() {
             </div>
             <div className='md:grid-cols-clothes md:grid mt-8 md:mt-20'>
                 <AsideFilter />
-                <div className='clothes-grid flex flex-col gap-8 md:grid grid-cols-mobileAutoFit md:grid-cols-autoFit md:pl-8 md:border-l-[1px] md:border-[#BDBDBD]'>
+                <div className='clothes-grid flex flex-col gap-8 md:grid grid-cols-mobileAutoFit min-h-[3in] md:min-h-0 md:grid-cols-autoFit md:pl-8 md:border-l-[1px] md:border-[#BDBDBD]'>
                     {clothes.length === 0 || filtered.clothes === 0 ?  <Loader /> : <></>}
                     {filtered.clothes.length === 0 ? clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />) :
                     filtered.clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />)}
