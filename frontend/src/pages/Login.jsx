@@ -73,10 +73,11 @@ function Form() {
 const Recovery = () => {
     const [email, setEmail] = useState('')
     const [alert, setAlert] = useState()
-    const handleSubmit = async () => {
+    const handleSubmit = async e => {
+        e.preventDefault()
         setAlert('loading')
         try {
-            await axios.post('/api/login/recovery', JSON.stringify(email), {
+            await axios.post('/api/login/recovery', email, {
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -89,7 +90,7 @@ const Recovery = () => {
     return (
         <form className='flex flex-col gap-6 my-4 xl:mt-6'>
             <input className={inputStyles} onChange={e => setEmail(e.target.value)} required type='email' name='email' placeholder="Email" />
-            {alert && alert !== 'loading' ? <div className={`alert text-lg ${alert === 'An email has been sent!' ? 'text-red-500' : 'text-green-500' }`}>{alert}</div> : <></>}
+            {alert && alert !== 'loading' ? <div className={`alert text-lg ${alert === 'An email has been sent!' ? 'text-green-500' : 'text-red-500' }`}>{alert}</div> : <></>}
             <Link to='/login' className="text-primary font-bold">Remember password?</Link>
             <button type='submit' onClick={handleSubmit} className={`${buttonStyles} mt-6 px-10 font-medium`}>Send message</button>
             {alert === 'loading' ? <Loader /> : <></>}
