@@ -44,7 +44,7 @@ export default function Header() {
     return (
         <header className={`flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] bg-white padding-x shadow-sm fixed top-0 right-0 left-0 ${url === "login" || url === "signup" || url === "contact" || url === "recovery" ? 'hidden' : 'z-20'}`}>
             <div className='logo font-medium'>
-                <Link className='font-bold' to='/' onClick={disableNav}><span className='text-primary'>Fashionist</span>Icons</Link>
+                <Link className='font-bold' to='/' onClick={disableNav}><span className='text-primary'>Fashion</span>Icons</Link>
             </div>
             <nav className={`navbar flex gap-6 absolute top-0 left-[100%] xl:gap-10 lg:relative lg:justify-end lg:flex-row lg:h-auto lg:left-auto lg:transform-none lg:opacity-100 h-screen w-screen bg-white items-center flex-col opacity-0 justify-center ${nav ? '-translate-x-full opacity-100' : ''} transition duration-500`}>
                 {pages.map(page => <NavLink key={page} path={`/clothing/${page.toLowerCase()}`}>{page}</NavLink>)}
