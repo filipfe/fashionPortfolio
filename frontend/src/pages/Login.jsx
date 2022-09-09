@@ -71,25 +71,25 @@ function Form() {
 }
 
 const Recovery = () => {
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState({
+        email: ''
+    })
     const [alert, setAlert] = useState()
     const handleSubmit = async e => {
         e.preventDefault()
         setAlert('loading')
-        try {
-            await axios.post('/api/login/recovery', email, {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then(() => setError('An email has been sent!'))
-        } catch(err) {
-            setAlert("Error")
-        }
+        const response = await axios.post('/api/login/recovery', JSON.stringify(email), {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        if(response.status === 200) setAlert('An email has been sent!')
+        else setAlert("There was an error.")
     }
 
     return (
         <form className='flex flex-col gap-6 my-4 xl:mt-6'>
-            <input className={inputStyles} onChange={e => setEmail(e.target.value)} required type='email' name='email' placeholder="Email" />
+            <input className={inputStyles} onChange={e => setEmail({email: e.target.value})} required type='email' name='email' placeholder="Email" />
             {alert && alert !== 'loading' ? <div className={`alert text-lg ${alert === 'An email has been sent!' ? 'text-green-500' : 'text-red-500' }`}>{alert}</div> : <></>}
             <Link to='/login' className="text-primary font-bold">Remember password?</Link>
             <button type='submit' onClick={handleSubmit} className={`${buttonStyles} mt-6 px-10 font-medium`}>Send message</button>
