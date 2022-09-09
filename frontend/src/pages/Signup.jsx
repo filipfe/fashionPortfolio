@@ -5,6 +5,7 @@ import { auth } from '../assets/form'
 import buttonStyles from "../utils/buttonStyles"
 import axios from "axios"
 import FormHeader from "../components/FormHeader"
+import Loader from "../components/Loader"
 
 const PWD_REGEX = /(?=.*[a-z])(?=.*[0-9])/
 
@@ -36,6 +37,7 @@ function Form() {
     })
 
     const handleSubmit = async e => {
+        setAlert({...alert, info: 'loading'})
         e.preventDefault()
         if(credentials.password.split('').length < 8) {
             return setAlert({...alert, info: 'Password must have at least 8 characters.'})
@@ -44,13 +46,19 @@ function Form() {
             return setAlert({...alert, info: 'Password has to be alphanumeric and contain at least one number.'})
         }
         else {
-            const response = await axios.post('/api/signup', JSON.stringify(credentials), {
-                headers: {
-                    'Content-Type': 'application/json'
+            try {
+                const response = await axios.post('/api/signup', JSON.stringify(credentials), {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                if(response.status === 200) {
+                    return navigate('/login')
                 }
-            })
-            if(response.status === 200) {
-                return navigate('/login')
+            } catch(err) {
+                let error = err.response.data
+                if('email' in error) setAlert({...alert, info: error.email[0].charAt(0).toUpperCase() + error.email[0].slice(1)})
+                
             }
         }
     }
@@ -68,7 +76,10 @@ function Form() {
             <input className={`${inputStyles} ${!alert.password ? 'focus:border-red-500 focus:border-2': 'focus:border-green-500 focus:border-2'}`} required value={credentials.password} onChange={e => setCredentials({...credentials, password: e.target.value})} type='password' name='password' placeholder="Password" />
             {alert.info ? <div className='alert text-lg text-red-500'>{alert.info}</div> : <></>}
             <span className="text-sm">Already have an account? <Link to='/login' className="text-primary font-bold">Log in</Link></span>
-            <button type="submit" className={`${buttonStyles} mt-6 px-10 font-medium`}>Create an account</button>
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-0 md:justify-between">
+                <button type="submit" className={`${buttonStyles} mt-6 px-10 font-medium`}>Create an account</button>
+                {alert.info === 'loading' ? <Loader /> : <></> }
+            </div>
         </form>
     )
 }
