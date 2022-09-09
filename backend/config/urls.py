@@ -29,6 +29,7 @@ urlpatterns = [
     path('contact', views.index),
     path('signup', views.index),
     path('login', views.index),
+    path('login/recovery', views.index),
     path('login/recovery/<uidb64>/<token>', views.index),
     path('login/recovery/complete', views.index),
     path('cart', views.index),
