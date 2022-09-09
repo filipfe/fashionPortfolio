@@ -42,7 +42,8 @@ export default function Clothing() {
     // fetching api
 
     useEffect(() => {
-        setFiltered({clothes: [], filter: ''})
+        setClothes([])
+        setFiltered({ filter: '', clothes: [] })
         let lastPath = location.pathname.split('/').pop()
         axios.get('/clothing/api')
             .then(res => res.data)

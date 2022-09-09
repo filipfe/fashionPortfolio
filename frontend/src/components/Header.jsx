@@ -40,7 +40,7 @@ export default function Header() {
     useEffect(() => setAuthorized(logged), [logged])
 
     return (
-        <header className={`flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] bg-white padding-x shadow-sm fixed top-0 right-0 left-0 ${location.pathname.split('/').pop() === "login" || location.pathname.split('/').pop() === "signup" || location.pathname.split('/').pop() === "contact" ? 'hidden' : 'z-10'}`}>
+        <header className={`flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] bg-white padding-x shadow-sm fixed top-0 right-0 left-0 ${location.pathname.split('/').pop() === "login" || location.pathname.split('/').pop() === "signup" || location.pathname.split('/').pop() === "contact" ? 'hidden' : 'z-20'}`}>
             <div className='logo font-medium'>
                 <Link className='font-bold' to='/' onClick={disableNav}><span className='text-primary'>Fashionist</span>Icons</Link>
             </div>
