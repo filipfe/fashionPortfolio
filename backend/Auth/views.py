@@ -17,7 +17,7 @@ from django.urls import reverse
 
 # Create your views here.
 
-def index(request):
+def index(request, *args, **kwargs):
     return render(request, 'dist/index.html')
     
 class RegisterView(APIView):
