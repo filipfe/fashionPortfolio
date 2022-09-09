@@ -16,7 +16,7 @@ import { login, logout } from "./reducers/auth"
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-const cartFromLocalStorage = JSON.parse(localStorage.getItem('cart'))
+const cartFromLocalStorage = localStorage.getItem('cart') === '[]' ? [] : JSON.parse(localStorage.getItem('cart'))
 const loginFromLocalStorage = localStorage.getItem('login') === 'undefined' ? 'undefined' : JSON.parse(localStorage.getItem('login'))
 
 export default function App() {
