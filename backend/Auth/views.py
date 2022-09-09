@@ -2,9 +2,9 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics, status
 from .models import User
-from .serializers import UserSerializer
+from .serializers import UserSerializer, PasswordResetSerializer
 import jwt, datetime
 from django.contrib.auth.models import AbstractUser
 
@@ -54,7 +54,6 @@ class UserView(APIView):
     def get(self, request):
         token = request.COOKIES.get('jwt')
 
-
         if not token:
             raise AuthenticationFailed('Unauthenticated!')
         try:
@@ -75,6 +74,20 @@ class LogoutView(APIView):
             'message': 'success'
         }
         return response
+
+class PasswordResetView(generics.GenericAPIView):
+    serializer_class = PasswordResetSerializer
+    def post(self, request):
+        data = {'request':request, 'data':request.data}
+        serializer = self.serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        return Response({'success':'A reset password link has been sent'}, status=status.HTTP_200_OK)
+
+class PasswordTokenCheckAPI(generics.GenericAPIView):
+    def get(self, request, uidb64, token):
+        pass
+
+
 
 '''class FavouritesView(generics.ListCreateAPIView):
     queryset = User.objects.values('favourites')
