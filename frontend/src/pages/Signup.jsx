@@ -74,7 +74,7 @@ function Form() {
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, last_name: e.target.value})} type='text' name='last-name' placeholder="Last Name" />
             <input className={inputStyles} required onChange={e => setCredentials({...credentials, email: e.target.value})} type='email' name='email' placeholder="Email" />
             <input className={`${inputStyles} ${!alert.password ? 'focus:border-red-500 focus:border-2': 'focus:border-green-500 focus:border-2'}`} required value={credentials.password} onChange={e => setCredentials({...credentials, password: e.target.value})} type='password' name='password' placeholder="Password" />
-            {alert.info ? <div className='alert text-lg text-red-500'>{alert.info}</div> : <></>}
+            {alert.info && alert.info !== 'loading' ? <div className='alert text-lg text-red-500'>{alert.info}</div> : <></>}
             <span className="text-sm">Already have an account? <Link to='/login' className="text-primary font-bold">Log in</Link></span>
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-0 md:justify-between">
                 <button type="submit" className={`${buttonStyles} mt-6 px-10 font-medium`}>Create an account</button>
