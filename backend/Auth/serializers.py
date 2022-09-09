@@ -1,3 +1,4 @@
+from pyexpat import model
 from unittest.util import _MAX_LENGTH
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed

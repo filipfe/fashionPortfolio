@@ -82,7 +82,7 @@ class LogoutView(APIView):
         }
         return response
 
-class PasswordResetView(generics.GenericAPIView):
+class PasswordResetView(APIView):
     serializer_class = PasswordResetSerializer
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
