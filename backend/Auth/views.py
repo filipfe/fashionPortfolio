@@ -17,6 +17,9 @@ from django.urls import reverse
 
 # Create your views here.
 
+def index(request):
+    return render(request, 'dist/index.html')
+    
 class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
