@@ -154,4 +154,4 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'Auth.User'
 
-CSRF_TRUSTED_ORIGINS=['https://fashionportfolio.up.railway.app/']
+CSRF_TRUSTED_ORIGINS=['https://fashionportfolio.up.railway.app']
