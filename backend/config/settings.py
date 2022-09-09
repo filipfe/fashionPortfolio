@@ -155,3 +155,14 @@ CORS_ALLOW_ALL_ORIGINS = True
 AUTH_USER_MODEL = 'Auth.User'
 
 CSRF_TRUSTED_ORIGINS=['https://fashionportfolio.up.railway.app']
+
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'portfoliositeexample@gmail.com'
+EMAIL_HOST_PASSWORD = 'hgsgdpxhmuqrcssx'
+ACCOUNT_SESSION_REMEMBER = None

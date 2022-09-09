@@ -7,5 +7,6 @@ urlpatterns = [
     path('api/login', views.LoginView.as_view()),
     path('api/user', views.UserView.as_view()),
     path('api/logout', views.LogoutView.as_view()),
-    path('login/recovery/<uidb64>/token', views.PasswordTokenCheckAPI.as_view(), name='password-reset-confirm'),
+    path('login/recovery', views.PasswordResetView.as_view(), name='recovery'),
+    path('login/recovery/<uidb64>/<token>', views.PasswordTokenCheckAPI.as_view(), name='password-reset-confirm'),
 ]
