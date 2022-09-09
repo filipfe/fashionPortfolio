@@ -1,11 +1,12 @@
+from unittest.util import _MAX_LENGTH
 from rest_framework import serializers
+from rest_framework.exceptions import AuthenticationFailed
 from .models import User
+
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from .utils import Util
-from django.contrib.sites.shortcuts import get_current_site
-from django.urls import reverse
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,24 +33,32 @@ class PasswordResetSerializer(serializers.Serializer):
     class Meta:
         fields = ['email']
 
+class NewPasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(max_length=255, write_only=True)
+    token = serializers.CharField(max_length=255, write_only=True)
+    uidb64 = serializers.CharField(max_length=255, write_only=True)
+
+    class Meta:
+        fields = ['password', 'token', 'uidb64']
+
     def validate(self, attrs):
-        email = attrs['data'].get('email', '')
-        if User.objects.filter(email=email).exists():
-            user = User.objects.get(email=email)
-            uidb64 = urlsafe_base64_encode(user.id)
-            token = PasswordResetTokenGenerator().make_token(user)
-            current_site = get_current_site(request=attrs['data'].get('request')).domain
-            relativeLink = reverse('password-reset-confirm', kwargs={'uidb64':uidb64, 'token':token})
-            absurl = 'https://' + current_site + relativeLink
-            email_body = 'Hi' + user.first_name + '\n Reset password: ' + absurl
-            data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Reset your password'}
-            
-            Util.send_email(data)
+        try:
+            password = attrs.get('password')
+            token = attrs.get('token')
+            uidb64 = attrs.get('uidb64')
 
+            id = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(id=id)
+
+            if not PasswordResetTokenGenerator().check_token(user, token):
+                raise AuthenticationFailed('Link is invalid', 401)
+
+            user.set_password(password)
+            user.save()
+
+        except Exception as e:
+            raise AuthenticationFailed('Link is invalid', 401)
         return super().validate(attrs)
-
-
-
 
 '''class FavouritesSerializer(serializers.ModelSerializer):
     class Meta:
