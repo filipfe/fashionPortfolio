@@ -44,6 +44,9 @@ export default function Clothing() {
     useEffect(() => {
         setClothes([])
         setFiltered({ filter: '', clothes: [] })
+        setSort({
+            price: ''
+        })
         let lastPath = location.pathname.split('/').pop()
         axios.get('/clothing/api')
             .then(res => res.data)
