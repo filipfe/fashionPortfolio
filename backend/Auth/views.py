@@ -6,7 +6,7 @@ from rest_framework import generics, status
 from .models import User
 from .serializers import UserSerializer, PasswordResetSerializer, NewPasswordSerializer
 import jwt, datetime
-from django.contrib.auth.models import AbstractUser
+
 
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
@@ -17,7 +17,7 @@ from django.urls import reverse
 
 # Create your views here.
 
-def index(request):
+def index(request, *args, **kwargs):
     return render(request, 'dist/index.html')
     
 class RegisterView(APIView):
@@ -97,7 +97,7 @@ class PasswordResetView(APIView):
             token = PasswordResetTokenGenerator().make_token(user)
             current_site = get_current_site(request=request).domain
             relativeLink = reverse('password-reset-confirm', kwargs={'uidb64':uidb64, 'token':token})
-            absurl = 'http://' + current_site + relativeLink
+            absurl = 'https://' + current_site + relativeLink
             email_body = 'Hi ' + user.first_name + '\n Reset password: ' + absurl
             data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Reset your password'}
             
