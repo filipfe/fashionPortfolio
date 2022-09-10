@@ -44,6 +44,9 @@ export default function Clothing() {
     useEffect(() => {
         setClothes([])
         setFiltered({ filter: '', clothes: [] })
+        setSort({
+            price: ''
+        })
         let lastPath = location.pathname.split('/').pop()
         axios.get('/clothing/api')
             .then(res => res.data)
@@ -77,7 +80,7 @@ export default function Clothing() {
                 {active ? <div className='absolute left-0 lg:left-auto lg:right-0 mt-2 rounded p-4 flex flex-col bg-white gap-4 border-[1px] border-[#E6E6E6]'>
                     <h4 className="font-bold">Price</h4>
                     <ul className="text-[#8B8B8B] flex flex-col font-medium gap-1">
-                        {sorts.price.map(price => <li className={`cursor-pointer ${sort.price === price ? 'text-primary font-bold' : 'hover:text-primary'}`} onClick={() => setSort({...sort, price: price})}>{price}</li>)}
+                        {sorts.price.map(price => <li className={`cursor-pointer ${sort.price === price ? 'text-primary font-bold' : 'hover:text-primary'}`} key={price} onClick={() => setSort({...sort, price: price})}>{price}</li>)}
                     </ul>
                 </div> : <></>}
             </div>

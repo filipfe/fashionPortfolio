@@ -17,7 +17,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 
 const cartFromLocalStorage = localStorage.getItem('cart') === '[]' ? [] : JSON.parse(localStorage.getItem('cart'))
-const loginFromLocalStorage = localStorage.getItem('login') === 'undefined' ? 'undefined' : JSON.parse(localStorage.getItem('login'))
+const loginFromLocalStorage = localStorage.getItem('login') === 'undefined' || localStorage.getItem('login') === '{}' ? 'undefined' : JSON.parse(localStorage.getItem('login'))
 
 export default function App() {
   const { cart } = useSelector(state => state.cart)
