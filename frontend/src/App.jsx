@@ -52,9 +52,9 @@ export default function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/clothing/*' element={<Clothing />} />
-          <Route path='/cart' element={<CartPage />} />
+          <Route path='/cart/*' element={<CartPage />} />
           <Route path='/login/*' element={<PublicRoute><Login /></PublicRoute>} />
-          <Route path='/signup' element={<PublicRoute><Signup /></PublicRoute>} />
+          <Route path='/signup/*' element={<PublicRoute><Signup /></PublicRoute>} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />
           {api.map(item => <Route key={item.id} path={`/clothing/${item.id}`} element={<Cloth {...item} cloth={item} />} />)}

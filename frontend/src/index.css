@@ -21,6 +21,9 @@ body {
   padding: 1.3in 8vw;
 }
 
+.main-image {
+  left: 8vw;
+}
 
 #root,
 body,
@@ -39,6 +42,9 @@ body {
   }
   .padding-x.padding-y {
     padding: 1.8in 12vw;
+  }
+  .main-image {
+    left: 12vw;
   }
 }
 
