@@ -114,9 +114,9 @@ const Cloth = (props) => {
     const { logged } = login
     const { id } = login.info
     const [saved, setSaved] = useState(false)
+    const firstUpdate = useRef(true)
 
     const handleAdd = async () => {
-        if(!logged) return navigate('/login')
         const response = await axios.post('/api/favourites', JSON.stringify({
             user_id: id,
             clothing_id: props.id
@@ -125,8 +125,21 @@ const Cloth = (props) => {
                 'Content-Type': 'application/json'
             }
         })
-        if(response.status === 201) return setSaved(true)
+        if(response.status !== 201) return setSaved(false)
     }
+
+    const handleRemove = () => {
+        return
+    }
+
+    useEffect(() => {
+        if(!firstUpdate) {
+            if(!logged) return navigate('/login')
+            if(saved) handleAdd()
+            if(!saved) handleRemove()
+        }
+        firstUpdate.current = false
+    }, [saved])
 
     return (
         <div className="relative">
@@ -143,7 +156,7 @@ const Cloth = (props) => {
                 </>
                 : <p className='text-center font-bold'>${props.price}</p>}
             </Link>
-            <Save className="absolute bottom-8 cursor-pointer left-6 max-h-8 max-w-8 z-10" fill={saved ? 'red' : 'white'} onClick={handleAdd} alt="Save" />
+            <Save onClick={() => setSaved(prev => !prev)} className="absolute bottom-8 cursor-pointer left-6 max-h-8 max-w-8 z-10" fill={saved ? 'red' : 'white'} alt="Save" />
         </div>
 
     )
