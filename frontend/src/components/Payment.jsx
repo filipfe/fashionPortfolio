@@ -25,7 +25,7 @@ function Form() {
             <input className={inputStyles} required type='tel' name='phone' placeholder="Phone Number" />
             <div className="flex flex-col sm:flex-row gap-6 sm:items-center">
                 <button type="submit" className={`${buttonStyles} mt-6 px-10 font-medium`}>Move to the payment</button>
-                <Link to='/cart' className='text-primary py-3 flex items-center w-max font-medium sm:mt-6'><img className="mr-[.8em] max-h-[.8em]" src={arrow} alt='' />Back</Link>
+                <Link to='/cart' className='text-primary px-6 py-3 flex items-center w-max font-medium sm:mt-6'><img className="mr-[.8em] max-h-[.8em]" src={arrow} alt='' />Back</Link>
             </div>
         </form> 
     ) 
