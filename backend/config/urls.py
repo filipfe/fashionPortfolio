@@ -39,5 +39,6 @@ urlpatterns = [
     path('', include('ClothingApi.urls')),
     path('', include('Auth.urls')),
     path('', include('Orders.urls')),
+    path('', include('Favourites.urls')),
 ]
 

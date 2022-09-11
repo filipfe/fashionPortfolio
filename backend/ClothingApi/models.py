@@ -25,6 +25,7 @@ SEX = [
 ]
 
 class Clothing(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='')
     price = models.FloatField()
@@ -34,7 +35,7 @@ class Clothing(models.Model):
     collection = models.BooleanField(default=False)
     new = models.BooleanField(default=False)
     sale = models.IntegerField(default=0)
-    id = models.AutoField
     
     def __str__(self):
-        return self.title
+        return "{} - {}".format(self.id,
+                                self.title)
