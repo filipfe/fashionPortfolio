@@ -3,23 +3,20 @@ import buttonStyles from "../utils/buttonStyles"
 import { inputStyles } from "../pages/Signup"
 import { Link, useNavigate } from "react-router-dom"
 import arrow from '../assets/arrow-left.svg'
-import axios from "axios"
-import { useSelector } from "react-redux"
 import Loader from "./Loader"
 
-export default function Shipping() {
+export default function Shipping(props) {
     return (
         <div className='flex flex-col gap-6 w-full lg:w-[6in] relative'>
             <h2 className="text-6xl font-bold">Shipping details</h2>
             <p className="font-medium text-xl text-[#707070]">Fill the form in order to order your products.</p>
-            <Form />
+            <Form {...props} />
         </div>
     )
 }
 
-function Form() {
+function Form({ setOrder }) {
     const navigate = useNavigate()
-    const { info } = useSelector(state => state.login)
     const [loading, setLoading] = useState(false)
     const [address, setAddress] = useState({
         address: '',
@@ -29,15 +26,16 @@ function Form() {
         phone_number: ''
     })
 
-    const handleSubmit = async e => {
+    const handleSubmit = e => {
         e.preventDefault()
         setLoading(true)
-        const response = await axios.post('/api/user-address', JSON.stringify({user_id: info.id, ...address}), {
-            headers: {
-                "Content-Type": 'application/json'
+        setOrder(prev => {
+            return {
+                ...prev,
+                shipping: {...address}
             }
         })
-        if(response.status === 201) return navigate('/cart/shipping/payment')
+        return navigate('/cart/payment')
     }
 
     return (

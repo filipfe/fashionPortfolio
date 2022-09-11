@@ -1,40 +1,20 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { add, remove } from "../reducers/cart"
 import buttonStyles from "../utils/buttonStyles"
 
-export default function Cart() {
+export default function Cart({ summary }) {
     const { cart } = useSelector(state => state.cart)
     const { logged } = useSelector(state => state.login)
-    const [authorized, setAuthorized] = useState(false)
-    const [items, setItems] = useState([])
-    const [summary, setSummary] = useState(0)
-
-    useEffect(() => setItems(cart), [cart])
-    useEffect(() => setAuthorized(logged), [logged])
-
-    useEffect(() => {
-        let summaryPrice = 0;
-        items.forEach(cloth => {
-            let item = cart.find(item => item.id === cloth.id)
-            if(cloth.sale) {
-                summaryPrice += (cloth.price - (cloth.price * (cloth.sale / 100))) * item.quantity
-            } else {
-                summaryPrice += cloth.price * item.quantity
-            }
-        })
-        setSummary(summaryPrice)
-    }, [items])
 
     return (
         <div className="cart flex flex-col lg:max-w-[max-content]">
-            {items.map(cloth => <CartItem {...cloth} cart={cart} cloth={cloth} key={cloth} />)}
+            {cart.map(cloth => <CartItem {...cloth} cart={cart} cloth={cloth} key={cloth} />)}
             { summary > 0 ? 
             <div className="summary grid grid-cols-2 grid-rows-2 border-[#BDBDBD] border-t-2">
                 <h2 className="text-xl font-bold pt-8">Total</h2>
                 <strong className="text-2xl col-first">${summary}</strong>
-                <Link to={authorized ? '/cart/shipping' : '/login'} className={`${buttonStyles} px-10 font-medium row-span col-second self-center ml-auto text-md`}>Proceed payment</Link>
+                <Link to={logged ? '/cart/shipping' : '/login'} className={`${buttonStyles} px-10 font-medium row-span col-second self-center ml-auto text-md`}>Proceed payment</Link>
             </div> : <p>Nothing's there! Go ahead and <Link className='text-primary font-bold' to='/clothing'>choose some clothing.</Link></p>
             }
         </div>

@@ -7,6 +7,7 @@ import sale from '../assets/sale.svg'
 import arrow from '../assets/arrow-down.svg'
 import clear from '../assets/x.svg'
 import Loader from "../components/Loader"
+import save from '../assets/save.svg'
 
 const filters = [
     'Jackets',
@@ -120,6 +121,7 @@ const Cloth = (props) => {
                 <p className='text-center'><strong>${props.price - (props.price * (props.sale / 100))} <strong className='text-red-500'>{`(-${props.sale}%)`}</strong></strong></p>
             </>
             : <p className='text-center font-bold'>${props.price}</p>}
+            <img className="absolute bottom-8 left-6 max-h-8 max-w-8 z-10" src={save} alt="Save" />
         </Link>
     )
 }
