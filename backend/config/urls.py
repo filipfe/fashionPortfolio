@@ -33,8 +33,10 @@ urlpatterns = [
     #path('login/recovery/<uidb64>/<token>', views.index),
     path('login/recovery/complete', views.index),
     path('cart', views.index),
+    path('cart/payment', views.index),
     path('profile', views.index),
     path('', include('ClothingApi.urls')),
     path('', include('Auth.urls')),
+    path('', include('Orders.urls')),
 ]
 

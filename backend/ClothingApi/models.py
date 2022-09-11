@@ -35,3 +35,6 @@ class Clothing(models.Model):
     new = models.BooleanField(default=False)
     sale = models.IntegerField(default=0)
     id = models.AutoField
+    
+    def __str__(self):
+        return self.title
