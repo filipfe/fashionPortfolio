@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     
     'ClothingApi',
     'Auth',
+    'Orders',
 ]
 
 REST_FRAMEWORK = {
