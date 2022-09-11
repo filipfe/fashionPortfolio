@@ -11,9 +11,10 @@ module.exports = {
         darkPrimary: '#2A42AF'
       },
       gridTemplateColumns: {
-        autoFit: 'repeat(auto-fit, minmax(280px, 1fr))',
+        autoFit: 'repeat(auto-fit, minmax(300px, 1fr))',
         mobileAutoFit: 'repeat(auto-fit, minmax(5rem, 1fr))',
-        clothes: '2in 1fr'
+        clothes: '2in 1fr',
+        payment: '2fr 1fr'
       },
       gridColumn: {
         first: '1 / 2',

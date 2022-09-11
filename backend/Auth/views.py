@@ -55,7 +55,7 @@ class VerifyEmail(generics.GenericAPIView):
                 user.save()
             return Response({'Successfully activated'}, status=status.HTTP_200_OK)
         except jwt.ExpiredSignatureError as identifier:
-            return Response({'error': 'Activation link expired'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'Activation link expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError as identifier:
             return Response({'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
             

@@ -34,7 +34,7 @@ export default function Cart() {
             <div className="summary grid grid-cols-2 grid-rows-2 border-[#BDBDBD] border-t-2">
                 <h2 className="text-xl font-bold pt-8">Total</h2>
                 <strong className="text-2xl col-first">${summary}</strong>
-                <Link to={authorized ? '/profile/payment' : '/login'} className={`${buttonStyles} px-10 font-medium row-span col-second self-center ml-auto text-md`}>Proceed payment</Link>
+                <Link to={authorized ? '/cart/shipping' : '/login'} className={`${buttonStyles} px-10 font-medium row-span col-second self-center ml-auto text-md`}>Proceed payment</Link>
             </div> : <p>Nothing's there! Go ahead and <Link className='text-primary font-bold' to='/clothing'>choose some clothing.</Link></p>
             }
         </div>
