@@ -35,7 +35,7 @@ export default function SearchBar() {
         <div className="relative z-10">
             <div className="relative max-w-[max-content]">
                 <input ref={input} value={search.input} onFocus={() => setSearch({...search, active: true})} onBlur={handleBlur} onChange={handleInput} style={{backgroundPosition: '1.5rem center', backgroundSize: '1em'}} className='relative font-medium peer placeholder:font-normal w-full lg:w-auto border-[1px] bg-search bg-no-repeat outline-none border-[#E6E6E6] px-16 py-2 pr-[6vw] rounded-md' type='text' />
-                <span className="absolute pointer-events-none peer-focus:translate-y-[-64%] peer-focus:left-14 peer-focus:text-sm peer-focus:px-2 transition-all duration-300 bg-white translate-y-[50%] bottom-[50%] text-[1em] left-16 text-[#989898]">Search for clothes</span>
+                <span className="absolute pointer-events-none peer-focus:translate-y-[-64%] peer-focus:left-14 peer-focus:text-sm peer-focus:px-4 transition-all duration-300 bg-white translate-y-[50%] bottom-[50%] text-[1em] left-16 text-[#989898]">Search for clothes</span>
                 {search.input.split("").length > 0 ? <img onClick={() => setSearch({...search, input: ''})} className="absolute cursor-pointer right-[1.5rem] translate-y-[50%] bottom-[50%] max-h-[1em]" src={x} alt="" /> : <></>}
             </div>
             {search.active ? <div className='absolute right-0 left-0 mt-2 flex flex-col max-h-[1.2in] overflow-auto'>

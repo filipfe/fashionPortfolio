@@ -14,7 +14,11 @@ export default function Profile() {
 
     return (
         <section className="padding-y padding-x">
-            <h1 className="text-4xl font-bold">Hi <span className="text-primary">{info.first_name.charAt(0).toUpperCase() + info.first_name.slice(1)}</span></h1>
+            <h1 className="text-4xl font-bold mb-16">Hi <span className="text-primary">{info.first_name.charAt(0).toUpperCase() + info.first_name.slice(1)}</span></h1>
+            <h2 className="font-bold text-6xl">Saved</h2>
+            <div className='flex flex-col gap-6 md:grid-autoFit'>
+
+            </div>
             <button onClick={handleLogout} className='text-md text-white bg-red-500 font-bold py-3 px-6 rounded mt-16'>Log Out</button>
         </section>
     )
