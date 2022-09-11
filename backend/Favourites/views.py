@@ -7,10 +7,10 @@ from rest_framework.generics import get_object_or_404
 
 # Create your views here.
 
-class FavouriteView(generics.CreateAPIView):
+class FavouriteView(generics.GenericAPIView, generics.mixins.CreateModelMixin, generics.mixins.DestroyModelMixin):
     queryset = Favourite.objects.all()
     serializer_class = FavouriteSerializer
-    '''def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         
         
         return self.create(request, *args, **kwargs)
@@ -18,7 +18,7 @@ class FavouriteView(generics.CreateAPIView):
     def delete(self, request, id):
         item = Favourite.objects.get(id=id)
         item.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)'''
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
