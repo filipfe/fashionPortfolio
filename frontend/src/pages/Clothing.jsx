@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router"
 import { useSelector } from 'react-redux/es/exports'
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import axios from 'axios'
 import { Link } from "react-router-dom"
 import SearchBar from "../components/SearchBar"
@@ -31,6 +31,8 @@ export default function Clothing() {
         filter: '',
         clothes: []
     })
+    const [saved, setSaved] = useState([])
+    const { id } = useSelector(state => state.login.info)
 
     const location = useLocation()
 
@@ -54,9 +56,16 @@ export default function Clothing() {
             .then(res => res.data)
             .then(data => lastPath === 'trending' ? data.filter(cloth => cloth.trending) : lastPath === 'new' ? data.filter(cloth => cloth.new) : lastPath === 'collection' ? data.filter(cloth => cloth.collection) : lastPath !== 'clothing' ? data.filter(cloth => cloth.sex === lastPath) : data)
             .then(data => setClothes(data))
-            .catch(error => console.log(error.message))
+            .catch(error => console.log(error.message));
     }, [location])
 
+    useEffect(() => {
+        axios.get('/api/favourites')
+            .then(res => res.data)
+            .then(data => data.filter(save => save.user_id === id))
+            .then(arr => arr.map(save => save.clothing_id))
+            .then(ids => setSaved(ids))
+    }, [id, location])
     // filter
 
     const AsideFilter = () => {
@@ -100,8 +109,8 @@ export default function Clothing() {
                 <AsideFilter />
                 <div className='clothes-grid flex flex-col gap-8 md:grid grid-cols-mobileAutoFit min-h-[3in] md:min-h-0 md:grid-cols-autoFit md:pl-8 md:border-l-[1px] md:border-[#BDBDBD]'>
                     {clothes.length === 0 || filtered.clothes === 0 ?  <Loader /> : <></>}
-                    {filtered.clothes.length === 0 ? clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />) :
-                    filtered.clothes.map(cloth => <Cloth {...cloth} key={cloth} cloth={cloth} />)}
+                    {filtered.clothes.length === 0 ? clothes.map(cloth => <Cloth {...cloth} key={cloth} fav={saved} cloth={cloth} />) :
+                    filtered.clothes.map(cloth => <Cloth {...cloth} key={cloth} fav={saved} cloth={cloth} />)}
                 </div>
             </div>
         </section>
@@ -113,7 +122,7 @@ const Cloth = (props) => {
     const login = useSelector(state => state.login)
     const { logged } = login
     const { id } = login.info
-    const [saved, setSaved] = useState(false)
+    const [saved, setSaved] = useState(props.fav.includes(props.id) ? true : false)
     const firstUpdate = useRef(true)
 
     const handleAdd = async () => {
@@ -125,15 +134,28 @@ const Cloth = (props) => {
                 'Content-Type': 'application/json'
             }
         })
-        if(response.status !== 201) return setSaved(false)
     }
 
-    const handleRemove = () => {
-        return
+    const handleRemove = async () => {
+        let removeId;
+        try {
+            await axios.get('/api/favourites')
+                .then(res => res.data)
+                .then(data => data.filter(save => save.user_id === id && save.clothing_id === props.id))
+                .then(save => removeId = save[0].id)
+        }
+        catch {
+            return setSaved(true)
+        }
+        axios.delete(`/api/favourites/remove/${removeId}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
     }
 
     useEffect(() => {
-        if(!firstUpdate) {
+        if(!firstUpdate.current) {
             if(!logged) return navigate('/login')
             if(saved) handleAdd()
             if(!saved) handleRemove()

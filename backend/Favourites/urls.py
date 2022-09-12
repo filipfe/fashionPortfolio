@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path('api/favourites', views.FavouriteView.as_view()),
-    path('api/favourites/remove', views.RemoveFavouriteView.as_view()),
+    path('api/favourites/remove/<int:pk>', views.RemoveFavouriteView.as_view()),
 ]

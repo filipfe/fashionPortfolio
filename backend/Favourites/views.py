@@ -7,7 +7,7 @@ from rest_framework.generics import get_object_or_404
 
 # Create your views here.
 
-class FavouriteView(generics.CreateAPIView):
+class FavouriteView(generics.ListCreateAPIView):
     queryset = Favourite.objects.all()
     serializer_class = FavouriteSerializer
     '''def post(self, request, *args, **kwargs):
