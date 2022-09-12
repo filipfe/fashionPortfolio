@@ -10,7 +10,6 @@ from Auth.models import User
 
 
 class FavouriteView(generics.ListCreateAPIView):
-    #user_id = 
     queryset = Favourite.objects.all()
     serializer_class = FavouriteSerializer
 
