@@ -60,11 +60,20 @@ export default function Clothing() {
     }, [location])
 
     useEffect(() => {
-        axios.get('/api/favourites')
-            .then(res => res.data)
-            .then(data => data.filter(save => save.user_id === id))
-            .then(arr => arr.map(save => save.clothing_id))
+        if(typeof(id) === "number") {
+            axios.post('/api/favourites/id', id, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => res.data)
+            .then(data => data.map(save => save.clothing_id))
             .then(ids => setSaved(ids))
+        }
+        
+            // .then(res => res.data)
+            // .then(data => data.filter(save => save.user_id === id))
+            // .then(arr => arr.map(save => save.clothing_id))
+            // .then(ids => setSaved(ids))
     }, [id, location])
     // filter
 
