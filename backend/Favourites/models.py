@@ -13,7 +13,7 @@ class Favourite(models.Model):
 
     def __str__(self):
         return "{} - {} - {} - {} - {}".format(self.id,
-                                               self.user_id,
-                                               self.clothing_id,
+                                               self.user,
+                                               self.clothing,
                                                self.created_at,
                                                self.updated_at)
