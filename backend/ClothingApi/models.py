@@ -3,8 +3,8 @@ from django.db import models
 # Create your models here.
 
 SHOES = 'shoes'
-JACKET = 'jacket'
-TSHIRT = 'tshirt'
+JACKET = 'jackets'
+TSHIRT = 'tshirts'
 HOODIES = 'hoodies'
 TROUSERS = 'trousers'
 
@@ -35,6 +35,8 @@ class Clothing(models.Model):
     collection = models.BooleanField(default=False)
     new = models.BooleanField(default=False)
     sale = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return "{} - {}".format(self.id,
