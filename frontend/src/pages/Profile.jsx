@@ -19,15 +19,18 @@ export default function Profile() {
 
     useEffect(() => {
         setSaved([])
-        axios.get('/api/favourites')
-            .then(res => res.data)
-            .then(data => data.filter(save => save.user_id === ID))
-            .then(arr => arr.map(save => save.clothing_id))
-            .then(arr => 
-                axios.get('/clothing/api')
-                    .then(res => res.data)
-                    .then(data => arr.forEach(id => setSaved(prev => [...prev, data.find(cloth => cloth.id === id)])))
-            )
+        axios.post('/api/favourites/id', JSON.stringify({user_id: ID}), {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.data)
+        .then(data => data.map(save => save.clothing_id))
+        .then(arr =>
+            axios.get('/clothing/api')
+                .then(res => res.data)
+                .then(data => arr.forEach(id => setSaved(prev => [...prev, data.find(cloth => cloth.id === id)])))
+        )
     }, [])
 
     return (
