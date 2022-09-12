@@ -22,7 +22,7 @@ class FavouriteUserIdView(generics.GenericAPIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        favourite = Favourite.objects.filter(user_id=serializer.data['user_id']).values()
+        favourite = Favourite.objects.filter(user=serializer.data['user_id']).values()
 
         return Response(favourite)
 
