@@ -6,8 +6,8 @@ from ClothingApi.models import Clothing
 
 class Favourite(models.Model):
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    clothing_id = models.ForeignKey(Clothing, on_delete=models.SET_NULL, null=True, blank=True)
+    user_id = models.IntegerField(default=0)
+    clothing_id = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
