@@ -23,7 +23,7 @@ function Form() {
             <input className={inputStyles} required type='email' name='email' placeholder="Email" />
             <input className={inputStyles} required type='tel' name='phone' placeholder="Phone Number" />
             <textarea className={`${inputStyles} resize-y min-h-[4rem]`} required placeholder="Message" />
-            <button type="submit" className={`${buttonStyles} mt-6 px-10 font-medium`}>Send message</button>
+            <button type="submit" className={`${buttonStyles} mt-6 max-w-max px-10 font-medium`}>Send message</button>
         </form> 
     ) 
 }

@@ -40,8 +40,8 @@ export default function CartPage() {
     const url = location.pathname.split("/").pop()
 
     return (
-        <section className="padding-y padding-x lg:flex lg:items-center lg:flex-col">
-            {url === 'cart' ? <h2 className="font-bold text-2xl lg:text-3xl mb-4">Your cart</h2> : <></>}
+        <section className={url === 'cart' ? 's-cart py-[1.3in]' : 'padding-y padding-x pb0 relative flex flex-col items-center min-h-screen'}>
+            {url === 'cart' ? <h2 className="font-bold text-5xl ml-[8vw] md:ml-0">Your cart</h2> : <></>}
             {url === 'cart' ? <Cart summary={summary} /> : url === 'shipping' ? <Shipping setOrder={setOrder} /> : url === 'payment' ? <Payment summary={summary} /> : <></>}
         </section>
     )

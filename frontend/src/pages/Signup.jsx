@@ -96,9 +96,9 @@ const Activation = () => {
         <>
             {alert === 'loading' ? <Loader /> : <></> }
             {alert && alert !== 'loading' ? <div className={`text-xl ${alert === "Your account has been successfully verified!" ? 'text-green-500' : 'text-red-500'}`}>{alert}</div> : <></>}
-            <Link className={`${buttonStyles} mt-6 px-10 font-medium`} to='/login'>Log in</Link>
+            <Link className={`${buttonStyles} mt-6 px-10 max-w-max font-medium`} to='/login'>Log in</Link>
         </>
     )
 }
 
-export const inputStyles = 'bg-[#FBFBFB] py-3 px-6 sm:px-10 max-w-full rounded-md border-[1px] border-[#E6E6E6] outline-none'
+export const inputStyles = 'bg-[#FBFBFB] py-3 px-6 sm:px-10 max-w-full font-medium rounded-md placeholder:font-normal border-[1px] border-[#E6E6E6] outline-none'
