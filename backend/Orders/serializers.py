@@ -9,4 +9,4 @@ class OrderSerializer(serializers.ModelSerializer):
 class UserAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAddress
-        fields = ('id', 'user_id', 'address', 'city', 'postal_code', 'country', 'phone_number', 'created_at', 'updated_at')
+        fields = ('id', 'user_id', 'name', 'surname', 'country', 'region', 'city', 'postal_code', 'address', 'company', 'phone_number', 'created_at', 'updated_at')
