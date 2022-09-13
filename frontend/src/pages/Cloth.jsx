@@ -8,7 +8,7 @@ export default function Cloth(props) {
             <div className="flex flex-col md:grid md:grid-cols-2 md:items-center">
                 <img className="mx-auto max-w-[90%]" src={`/images/${props.image.split('/').pop()}`} alt={props.title} />
                 <div className='info flex flex-col gap-4'>
-                    <h2 className="text-center text-3xl mt-4">{props.title}</h2>
+                    <h2 className="text-center text-xl md:text-3xl mt-4">{props.title}</h2>
                     {props.sale > 0 ? 
                     <>  
                         <div>

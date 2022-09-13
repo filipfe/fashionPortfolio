@@ -175,7 +175,7 @@ const Cloth = (props) => {
                 <div className='h-[4in] md:h-[4.5in] bg-[#F2F2F2] flex justify-center items-center'>
                     <img className="max-w-[90%] max-h-[90%]" src={`/images/${props.image.split('/').pop()}`} alt='' />
                 </div>
-                <h3 className='text-center text-xl my-2'>{props.title}</h3>
+                <h3 className='text-center text-xl my-3'>{props.title}</h3>
                 {props.sale > 0 ? 
                 <>  
                     <p className='text-center'><del>${props.price}</del></p>
@@ -183,7 +183,7 @@ const Cloth = (props) => {
                 </>
                 : <p className='text-center font-bold'>${props.price}</p>}
             </Link>
-            <Save onClick={() => setSaved(prev => !prev)} className="absolute bottom-8 cursor-pointer left-6 max-h-8 max-w-8 z-10" fill={saved ? 'red' : 'white'} alt="Save" />
+            <Save onClick={() => setSaved(prev => !prev)} className="absolute top-[4.8in] cursor-pointer left-6 max-h-8 max-w-8 z-10" fill={saved ? 'red' : 'white'} alt="Save" />
         </div>
 
     )

@@ -68,7 +68,7 @@ const PrivateNav = ({ NavLink }) => {
         <>
             <div className='flex items-center gap-4 my-4 lg:my-0 2xl:gap-8 2xl:ml-[2vw] relative'>
                 {authorized ? <>
-                    <NavLink path='/profile/favourite'><img src={heart} alt='favourite' /></NavLink>
+                    <NavLink path='/profile'><img src={heart} alt='favourite' /></NavLink>
                     <NavLink path='/profile'><img src={profile} alt='profile' /></NavLink>
                 </> : <></> }
                 <NavLink path='/cart'>

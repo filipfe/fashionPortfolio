@@ -65,7 +65,7 @@ function Form() {
             <span className="text-sm font-medium">Don't have an account? <Link to='/signup' className="text-primary font-bold">Sign up</Link></span>
             {alert !== 'loading' && alert ? <div className='alert text-lg text-red-500'>{alert}</div> : <></>}
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-0 md:justify-between">
-                <button type="submit" className={`${buttonStyles} mt-6 px-10 font-medium`}>Log in</button>
+                <button type="submit" className={`${buttonStyles} mt-6 px-10 max-w-max font-medium`}>Log in</button>
                 {alert === 'loading' ? <Loader /> : <></>}
             </div>
         </form> 
