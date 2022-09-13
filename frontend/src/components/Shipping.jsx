@@ -19,7 +19,6 @@ export default function Shipping(props) {
 function Form({ setOrder }) {
     const navigate = useNavigate()
     const { first_name } = useSelector(state => state.login.info)
-    const [loading, setLoading] = useState(false)
     const [address, setAddress] = useState({
         address: '',
         city: '',
@@ -30,7 +29,6 @@ function Form({ setOrder }) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        setLoading(true)
         setOrder(prev => {
             return {
                 ...prev,
@@ -62,7 +60,6 @@ function Form({ setOrder }) {
                     <Link to='/cart' className='text-primary px-6 py-3 flex items-center justify-center border-[1px] border-primary rounded-md font-medium mt-6 sm:mt-0'><img className="mr-[.8em] max-h-[.8em]" src={arrow} alt='' />Back</Link>
                 </div>
             </form>
-            {loading ? <Loader /> : <></>}
         </div> 
     ) 
 }

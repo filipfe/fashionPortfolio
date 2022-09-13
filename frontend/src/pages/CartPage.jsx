@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import Shipping from '../components/Shipping'
 import Payment from '../components/Payment'
 import { useState, useEffect } from 'react'
+import Summary from '../components/Summary'
 
 export default function CartPage() {
     const location = useLocation()
@@ -20,7 +21,7 @@ export default function CartPage() {
             phone_number: ''
         },
         payment: {
-
+            method: ''
         }
     })
 
@@ -37,12 +38,24 @@ export default function CartPage() {
         setSummary(summaryPrice)
     }, [cart])
 
+    useEffect(() => {
+        console.log(order)
+    }, [order])
+
     const url = location.pathname.split("/").pop()
 
-    return (
-        <section className={url === 'cart' ? 's-cart py-[1.3in]' : 'padding-y padding-x pb0 relative flex flex-col items-center min-h-screen'}>
-            {url === 'cart' ? <h2 className="font-bold text-5xl ml-[8vw] md:ml-0">Your cart</h2> : <></>}
-            {url === 'cart' ? <Cart summary={summary} /> : url === 'shipping' ? <Shipping setOrder={setOrder} /> : url === 'payment' ? <Payment summary={summary} /> : <></>}
-        </section>
-    )
+    if(url === 'cart') {
+        return (
+            <section className='s-cart py-[1.3in]'>
+                <h2 className="font-bold text-5xl ml-[8vw] md:ml-0">Your cart</h2>
+                <Cart summary={summary} />
+            </section>
+        )
+    } else {
+        return (
+            <section className='padding-y padding-x pb0 relative flex flex-col items-center min-h-screen'>
+                {url === 'shipping' ? <Shipping setOrder={setOrder} /> : url === 'payment' ? <Payment summary={summary} /> : <Summary cart={cart} summary={summary} />}
+            </section>
+        )
+    }
 }
