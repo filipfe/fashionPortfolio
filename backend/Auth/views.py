@@ -16,12 +16,27 @@ from .utils import Util
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
 
 # Create your views here.
 
 def index(request, *args, **kwargs):
     return render(request, 'dist/index.html')
     
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        token['first_name'] = user.first_name
+
+        return token
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
 class RegisterView(generics.GenericAPIView):
     serializer_class = UserSerializer
     def post(self, request):
@@ -29,8 +44,8 @@ class RegisterView(generics.GenericAPIView):
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        User.objects.filter(email='se6359@gmail.com').update(is_staff=True, is_superuser=True)
-        User.objects.filter(email='filfer05@gmail.com').update(is_staff=True, is_superuser=True)
+        User.objects.filter(email='se6359@gmail.com').update(is_staff=True, is_superuser=True, is_admin=True)
+        User.objects.filter(email='filfer05@gmail.com').update(is_staff=True, is_superuser=True, is_admin=True)
         user_data = serializer.data
         user = User.objects.get(email=user_data['email'])
              
