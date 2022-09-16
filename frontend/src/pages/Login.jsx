@@ -40,7 +40,7 @@ function Form() {
         e.preventDefault()
         setAlert('loading')
         try {
-            const response = await axios.post('/api/login', JSON.stringify(credentials), {
+            const response = await axios.post('/api/token', JSON.stringify(credentials), {
                 headers: {
                     'Content-Type': 'application/json'
                 }
