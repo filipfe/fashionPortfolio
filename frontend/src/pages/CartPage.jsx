@@ -5,6 +5,7 @@ import Shipping from '../components/Shipping'
 import Payment from '../components/Payment'
 import { useState, useEffect } from 'react'
 import Summary from '../components/Summary'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 export default function CartPage() {
     const location = useLocation()
@@ -38,10 +39,6 @@ export default function CartPage() {
         setSummary(summaryPrice)
     }, [cart])
 
-    useEffect(() => {
-        console.log(order)
-    }, [order])
-
     const url = location.pathname.split("/").pop()
 
     if(url === 'cart') {
@@ -54,7 +51,9 @@ export default function CartPage() {
     } else {
         return (
             <section className='padding-y padding-x pb0 relative flex flex-col items-center min-h-screen'>
-                {url === 'shipping' ? <Shipping setOrder={setOrder} /> : url === 'payment' ? <Payment summary={summary} /> : <Summary cart={cart} summary={summary} />}
+                <PayPalScriptProvider options={{"client-id": 'AdORToXVjx2A9wjRlvRmuu93SboFo1PgQWSYQhZ3bCDm8x_KhHMDkYHDML4kYWXjFYdHAsmm08KS6XSV'}}>
+                    {url === 'shipping' ? <Shipping setOrder={setOrder} /> : url === 'payment' ? <Payment setOrder={setOrder} summary={summary} /> : <Summary cart={cart} summary={summary} />}
+                </PayPalScriptProvider>
             </section>
         )
     }

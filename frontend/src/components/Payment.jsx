@@ -22,7 +22,7 @@ const methods = [
     'Cash-on-delivery'
 ]
 
-function Form() {
+function Form({ setOrder }) {
     const [method, setMethod] = useState('Credit card')
     const navigate = useNavigate()
 
