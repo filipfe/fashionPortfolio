@@ -38,10 +38,6 @@ export default function CartPage() {
         setSummary(summaryPrice)
     }, [cart])
 
-    useEffect(() => {
-        console.log(order)
-    }, [order])
-
     const url = location.pathname.split("/").pop()
 
     if(url === 'cart') {
@@ -54,7 +50,7 @@ export default function CartPage() {
     } else {
         return (
             <section className='padding-y padding-x pb0 relative flex flex-col items-center min-h-screen'>
-                {url === 'shipping' ? <Shipping setOrder={setOrder} /> : url === 'payment' ? <Payment summary={summary} /> : <Summary cart={cart} summary={summary} />}
+                {url === 'shipping' ? <Shipping setOrder={setOrder} /> : url === 'payment' ? <Payment setOrder={setOrder} summary={summary} /> : <Summary cart={cart} summary={summary} />}
             </section>
         )
     }
