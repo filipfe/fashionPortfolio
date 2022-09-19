@@ -4,6 +4,7 @@ from rest_framework import generics, filters
 from .models import Favourite
 from .serializers import FavouriteSerializer, FavouriteUserIdSerializer
 from Auth.models import User
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 
 # Create your views here.

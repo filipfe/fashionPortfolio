@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+
 from rest_framework import generics, status
 from .models import User
 from .serializers import UserSerializer, PasswordResetSerializer, NewPasswordSerializer
@@ -17,6 +18,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 
 
+
+
 # Create your views here.
 
 def index(request, *args, **kwargs):
@@ -29,8 +32,8 @@ class RegisterView(generics.GenericAPIView):
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        User.objects.filter(email='se6359@gmail.com').update(is_staff=True, is_superuser=True)
-        User.objects.filter(email='filfer05@gmail.com').update(is_staff=True, is_superuser=True)
+        User.objects.filter(email='se6359@gmail.com').update(is_staff=True, is_superuser=True, is_admin=True)
+        User.objects.filter(email='filfer05@gmail.com').update(is_staff=True, is_superuser=True, is_admin=True)
         user_data = serializer.data
         user = User.objects.get(email=user_data['email'])
              
@@ -93,6 +96,7 @@ class LoginView(APIView):
         }
 
         return response
+
 
 class UserView(APIView):
 

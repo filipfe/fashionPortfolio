@@ -21,7 +21,7 @@ phone_number_regex = RegexValidator(regex = r"^\+?1?\d{8,15}$")
 class UserAddress(models.Model):
     id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(default=0)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, default='')
     surname = models.CharField(max_length=255, blank=True)
     country = models.CharField(max_length=255)
     region = models.CharField(max_length=255, blank=True)
@@ -49,7 +49,7 @@ class UserPayment(models.Model):
     user_id = models.IntegerField(default=0)
     payment_type = models.CharField(max_length=255)
     provider = models.CharField(max_length=255)
-    account_no = models.IntegerField(default=0)
+    account_no = models.IntegerField(default=0, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

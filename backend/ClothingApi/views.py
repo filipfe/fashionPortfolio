@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import Clothing
 from .serializers import ClothingSerializer
-
+from rest_framework.permissions import IsAdminUser
 
 class ClothingListCreate(generics.ListCreateAPIView):
     queryset = Clothing.objects.all()
