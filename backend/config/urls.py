@@ -35,7 +35,6 @@ urlpatterns = [
     path('cart', views.index),
     path('cart/shipping', views.index),
     path('cart/payment', views.index),
-    path('cart/summary', views.index),
     path('profile', views.index),
     path('', include('ClothingApi.urls')),
     path('', include('Auth.urls')),

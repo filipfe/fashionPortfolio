@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+
 from rest_framework import generics, status
 from .models import User
 from .serializers import UserSerializer, PasswordResetSerializer, NewPasswordSerializer
@@ -16,8 +17,7 @@ from .utils import Util
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
+
 
 
 # Create your views here.
@@ -25,18 +25,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 def index(request, *args, **kwargs):
     return render(request, 'dist/index.html')
     
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-
-        token['first_name'] = user.first_name
-
-        return token
-
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
-
 class RegisterView(generics.GenericAPIView):
     serializer_class = UserSerializer
     def post(self, request):
@@ -108,6 +96,7 @@ class LoginView(APIView):
         }
 
         return response
+
 
 class UserView(APIView):
 

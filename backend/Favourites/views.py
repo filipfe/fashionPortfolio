@@ -11,7 +11,6 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 
 class FavouriteView(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Favourite.objects.all()
     serializer_class = FavouriteSerializer
 

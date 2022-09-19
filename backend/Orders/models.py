@@ -49,7 +49,7 @@ class UserPayment(models.Model):
     user_id = models.IntegerField(default=0)
     payment_type = models.CharField(max_length=255)
     provider = models.CharField(max_length=255)
-    account_no = models.IntegerField(default=0)
+    account_no = models.IntegerField(default=0, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
