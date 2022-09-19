@@ -151,11 +151,15 @@ MEDIA_URL = 'images/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
-
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+  'http://localhost:8000',
+)
 AUTH_USER_MODEL = 'Auth.User'
 
 CSRF_TRUSTED_ORIGINS=['https://fashionportfolio.up.railway.app']
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
 
 # Email
 

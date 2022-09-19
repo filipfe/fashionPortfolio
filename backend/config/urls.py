@@ -39,6 +39,5 @@ urlpatterns = [
     path('', include('Auth.urls')),
     path('', include('Orders.urls')),
     path('', include('Favourites.urls')),
-    path('paypal/', include('paypal.standard.ipn.urls'))
 ]
 
