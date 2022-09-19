@@ -3,6 +3,8 @@ import { Link} from "react-router-dom"
 import arrow from '../assets/arrow-left.svg'
 import { useNavigate } from "react-router-dom"
 import ShippingNav from "./ShippingNav"
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import { useEffect } from "react"
 
 export default function Summary(props) {
     return (
@@ -16,6 +18,10 @@ export default function Summary(props) {
 function Info(props) {
     const navigate = useNavigate()
 
+    let price = 0;
+    useEffect(() => {
+        props.cart.forEach(item => item.sale ? price += (item.price - (item.price * (item.sale / 100))) * item.quantity : price += item.price * item.quantity)
+    }, [])
     
     return (
         <div className='sm:border-[1px] sm:border-[#E6E6E6] sm:p-6 md:p-10 sm:rounded sm:mt-6 sm:flex-1'>
@@ -28,10 +34,16 @@ function Info(props) {
                     <h3 className="text-2xl font-bold">Total</h3>
                     <h3 className="text-primary text-2xl font-bold">${props.summary}</h3>
                 </div>
-                <div className="flex flex-col-reverse sm:flex-row gap-6 sm:items-center sm:mt-6 col-[1/3]">
-                    <button className={`${buttonStyles} px-10 sm:w-max font-medium`}>Submit</button>
-                    <Link to='/cart/payment' className='text-primary px-6 py-3 flex items-center justify-center border-[1px] border-primary rounded-md font-medium mt-6 sm:mt-0'><img className="mr-[.8em] max-h-[.8em]" src={arrow} alt='' />Back</Link>
-                </div>
+                <Link to='/cart/payment' className='text-primary col-[1/3] px-6 py-3 max-w-max flex items-center justify-center border-[1px] border-primary rounded-md font-medium mt-6 sm:mt-0'><img className="mr-[.8em] max-h-[.8em]" src={arrow} alt='' />Back</Link>
+                <PayPalButtons createOrder={(data, actions) => {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: price
+                            }
+                        }]
+                    })
+                }} />
             </div>
         </div>
     ) 
@@ -41,7 +53,7 @@ const Item = (props) => {
     return (
         <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
             <h3 className="font-medium">x{props.quantity} {props.title}</h3>
-            <h3 className="font-medium">{props.sale ? props.price - (props.price * (props.sale / 100)) : props.price}</h3>
+            <h3 className="font-medium">${props.sale ? props.price - (props.price * (props.sale / 100)) : props.price}</h3>
         </div>
     )
 }

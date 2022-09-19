@@ -82,14 +82,15 @@ function Form() {
     )
 }
 
-const Activation = () => {
+const Activation = ({location}) => {
     const [alert, setAlert] = useState('loading')
 
+    const token = location.split('=').pop()
+
     useEffect(() => {
-        axios.get('/api/signup/activate')
+        axios.get(`/api/signup/activate?token=${token}`)
             .then(res => setAlert(res.response.data[0]))
             .catch(err => setAlert(err.response.data[0]))
-
     }, [])
 
     return (
