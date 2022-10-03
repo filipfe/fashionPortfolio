@@ -5,7 +5,7 @@ import buttonStyles from "../utils/buttonStyles"
 
 export default function Contact() {
     return (
-        <section className='padding-x padding-y flex items-center h-screen justify-center lg:justify-start lg:grid lg:grid-cols-2'>
+        <section className='padding-x padding-y bg-white flex items-center h-screen justify-center lg:justify-start lg:grid lg:grid-cols-2'>
             <div className='flex flex-col gap-6 min-w-[50%] lg:max-w-[70%] relative'>
                 <FormHeader />
                 <h2 className="text-6xl font-bold">Contact us</h2>

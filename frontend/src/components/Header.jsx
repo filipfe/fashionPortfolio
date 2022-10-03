@@ -22,7 +22,7 @@ export default function Header() {
     const NavLink = ({ children, path }) => {
         const activePath = useResolvedPath(path)
         const isActive = useMatch({ path: `${activePath.pathname}/*`, end: true })
-        return <Link className={isActive ? 'text-primary font-bold lg:text-sm' : 'hover:text-primary lg:text-sm lg:font-medium'} to={path} onClick={disableNav}>{children}</Link>
+        return <Link className={isActive ? 'text-primary font-semibold lg:text-sm' : 'hover:text-primary font-medium lg:text-[0.8rem]'} to={path} onClick={disableNav}>{children}</Link>
     }
     
     useEffect(() => setNav(false), [location])
@@ -30,11 +30,9 @@ export default function Header() {
     const url = location.pathname.split('/').pop()
 
     return (
-        <header className={`flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] bg-white padding-x shadow-sm fixed top-0 right-0 left-0 z-20 ${location.pathname.includes("login") || location.pathname.includes("activate") || url === "signup" || url === "contact" || url === "recovery" ? 'hidden' : ''}`}>
-            <div className='logo font-medium'>
-                <Link className='font-bold' to='/' onClick={disableNav}><span className='text-primary'>Fashion</span>Icons</Link>
-            </div>
-            <nav className={`navbar flex gap-6 absolute top-0 left-[100%] xl:gap-10 lg:relative lg:justify-end lg:flex-row lg:h-auto lg:left-auto lg:transform-none lg:opacity-100 h-screen w-screen bg-white items-center flex-col opacity-0 justify-center ${nav ? '-translate-x-full opacity-100' : ''} transition duration-500`}>
+        <header className={`flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] bg-background padding-x shadow-sm fixed top-0 right-0 left-0 z-20 ${location.pathname.includes("login") || location.pathname.includes("activate") || url === "signup" || url === "contact" || url === "recovery" ? 'hidden' : ''}`}>
+            <Link className='font-semibold' to='/' onClick={disableNav}><span className='text-primary'>Fashion</span>Icons</Link>
+            <nav className={`navbar flex gap-6 absolute top-0 left-[100%] xl:gap-10 lg:relative lg:justify-end lg:flex-row lg:h-auto lg:left-auto lg:transform-none lg:opacity-100 h-screen w-screen bg-background items-center flex-col opacity-0 justify-center ${nav ? '-translate-x-full opacity-100' : ''} transition duration-500`}>
                 {pages.map(page => <NavLink key={page} path={`/clothing/${page.toLowerCase()}`}>{page}</NavLink>)}
                 <NavLink path='/contact'>Contact us</NavLink>
                 <PrivateNav NavLink={NavLink} />
@@ -77,8 +75,8 @@ const PrivateNav = ({ NavLink }) => {
                 </NavLink>
             </div>
             {authorized ? <></> : <div className='login flex flex-col gap-4 items-center lg:flex-row'>
-                <Link className='border-primary rounded-md border-[1px] text-sm py-3 px-6 text-primary font-bold min-w-[max-content]' to='/login'>Log In</Link>
-                <Link className={`${buttonStyles} text-sm rounded-md`} to='/signup'>Sign Up</Link>
+                <Link className='border-primary rounded-md border-[1px] text-[0.8rem] py-3 px-5 text-primary font-semibold min-w-[max-content]' to='/login'>Log In</Link>
+                <Link className={`${buttonStyles} text-[0.8rem] font-semibold rounded-md`} to='/signup'>Sign Up</Link>
             </div>}
     </>
     )

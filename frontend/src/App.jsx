@@ -12,15 +12,17 @@ import Profile from "./pages/Profile"
 import Cloth from "./pages/Cloth"
 import { useSelector, useDispatch } from "react-redux"
 import { add } from "./reducers/cart"
+import jwtDecode from 'jwt-decode'
 import { login, logout } from "./reducers/auth"
 import { useState, useEffect } from "react"
 import axios from "axios"
 
 const cartFromLocalStorage = localStorage.getItem('cart') === '[]' ? [] : JSON.parse(localStorage.getItem('cart'))
-const loginFromLocalStorage = localStorage.getItem('login') === 'undefined' || localStorage.getItem('login') === '{}' ? 'undefined' : JSON.parse(localStorage.getItem('login'))
+const loginFromLocalStorage = JSON.parse(localStorage.getItem('login'))
 
 export default function App() {
   const { cart } = useSelector(state => state.cart)
+  const { tokens } = useSelector(state => state.login)
   const { info } = useSelector(state => state.login)
   const { logged } = useSelector(state => state.login)
   const [api, setApi] = useState([])
@@ -31,13 +33,18 @@ export default function App() {
   }, [cart]);
 
   useEffect(() => {
-    if(logged) localStorage.setItem('login', JSON.stringify(info))
-    else localStorage.setItem('login', 'undefined')
-  }, [info])
+    if(logged) localStorage.setItem('login', JSON.stringify(tokens))
+    else localStorage.removeItem('login')
+  }, [tokens])
 
   useEffect(() => {
-    if(loginFromLocalStorage !== 'undefined') dispatch(login(loginFromLocalStorage))
-    else dispatch(logout())
+    if(loginFromLocalStorage) {
+      let user = jwtDecode(loginFromLocalStorage.access)
+      dispatch(login({
+          info: user,
+          tokens: [loginFromLocalStorage.access, loginFromLocalStorage.refresh]
+      }))
+    } else dispatch(logout())
     cartFromLocalStorage.forEach(item => dispatch(add(item)))
     axios.get('/clothing/api')
       .then(res => res.data)

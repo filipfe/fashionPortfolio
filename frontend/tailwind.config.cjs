@@ -7,11 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#3552DC',
-        darkPrimary: '#2A42AF'
+        primary: '#0E61F1',
+        darkPrimary: '#2A42AF',
+        background: '#F5F9FE'
       },
       gridTemplateColumns: {
-        autoFit: 'repeat(auto-fit, minmax(300px, 1fr))',
+        autoFit: 'repeat(auto-fit, minmax(200px, 1fr))',
         mobileAutoFit: 'repeat(auto-fit, minmax(5rem, 1fr))',
         clothes: '2in 1fr',
         payment: '2fr 1fr'
@@ -25,6 +26,12 @@ module.exports = {
       },
       backgroundImage: {
         search: "url('./assets/search.svg')"
+      },
+      boxShadow: {
+        outsideBlueSm: '0px 0px 36px rgba(43, 73, 216, 0.17)',
+        outsideBlueMd: '0px 0px 54px rgba(43, 73, 216, 0.17)',
+        outsideBlueLg: '0px 0px 72px rgba(43, 73, 216, 0.17)',
+        button: '0px 21px 69px rgba(14, 97, 241, 0.5)'
       }
     },
   },

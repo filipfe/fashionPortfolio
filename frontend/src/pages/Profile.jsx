@@ -7,13 +7,18 @@ import { Link } from "react-router-dom"
 
 export default function Profile() {
     const { info } = useSelector(state => state.login)
+    const { refresh } = useSelector(state => state.login.tokens)
     const ID = info.id
     const dispatch = useDispatch()
     const [saved, setSaved] = useState([])
 
     const handleLogout = async () => {
-        const resp = await axios.post('/api/logout')
-                .catch(err => console.log(err))
+        console.log(refresh)
+        const resp = await axios.post('/api/logout', refresh, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).catch(err => console.log(err))
         if(resp.status === 200) return dispatch(logout())
     }
 
@@ -35,7 +40,7 @@ export default function Profile() {
 
     return (
         <section className="padding-y padding-x">
-            <h1 className="text-4xl font-bold mb-16">Hi <span className="text-primary">{info.first_name.charAt(0).toUpperCase() + info.first_name.slice(1)}</span></h1>
+            <h1 className="text-4xl font-bold mb-16">Hi <span className="text-primary">{info.first_name}</span></h1>
             <h2 className="font-bold text-6xl mb-8">Saved</h2>
             <div className='flex flex-col gap-6 md:flex-row'>
                 {saved.length > 0 ? saved.map(cloth => <Cloth {...cloth} key={cloth} />) : <p>Nothing's there! Go ahead and <Link className='text-primary font-bold' to='/clothing'>choose some clothing.</Link></p>}

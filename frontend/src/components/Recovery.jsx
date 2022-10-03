@@ -12,7 +12,7 @@ export default function Recovery() {
     const handleSubmit = async e => {
         e.preventDefault()
         setAlert('loading')
-        const response = await axios.post('/api/login/recovery', JSON.stringify({email: email}), {
+        const response = await axios.post('/api/login/recovery', email, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -26,7 +26,7 @@ export default function Recovery() {
             <input className={inputStyles} onChange={e => setEmail(e.target.value)} required type='email' name='email' placeholder="Email" />
             {alert && alert !== 'loading' ? <div className={`alert text-lg ${alert === 'An email has been sent!' ? 'text-green-500' : 'text-red-500' }`}>{alert}</div> : <></>}
             <Link to='/login' className="text-primary font-bold">Remember password?</Link>
-            <button type='submit' onClick={handleSubmit} className={`${buttonStyles} mt-6 px-10 font-medium`}>Send message</button>
+            <button type='submit' onClick={handleSubmit} className={`${buttonStyles} mt-6 px-10 font-medium max-w-max`}>Send message</button>
             {alert === 'loading' ? <Loader /> : <></>}
         </form>
     )

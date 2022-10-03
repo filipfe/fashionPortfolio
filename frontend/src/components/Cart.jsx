@@ -17,7 +17,7 @@ export default function Cart({ summary }) {
                     <h3 className="font-bold ml-20">Quantity</h3>
                     <h3 className="font-bold">Price</h3>
                 </div>
-                <div className="flex flex-col relative border-x-[1px] border-b-[1px] border-[#E6E6E6] overflow-x-auto">
+                <div className="flex flex-col shadow-outsideBlueLg rounded-xl overflow-hidden relative overflow-x-auto">
                     {cart.map(cloth => <CartItem {...cloth} cart={cart} cloth={cloth} key={cloth} />)}
                 </div>
             </div>
@@ -33,9 +33,9 @@ const CartItem = props => {
     const index = props.cart.findIndex(item => item.id === props.id)
 
     return (
-        <div className="px-[8vw] py-6 md:px-10 flex justify-between md:gap-[8vw] border-[#E6E6E6] border-t-[1px] even:bg-[#FCFCFC]">
+        <div className="px-[8vw] py-6 md:px-10 flex justify-between md:gap-[8vw] even:bg-[#FCFCFC]">
             <div className="flex gap-4">
-                <div className='h-[4.5rem] w-[4.5rem] md:h-[5rem] md:w-[5rem] rounded bg-[#F2F2F2] flex justify-center items-center'>
+                <div className='h-[4.5rem] w-[4.5rem] md:h-[5rem] md:w-[5rem] rounded bg-[#FBFBFB] shadow-outsideBlueSm flex justify-center items-center'>
                     <img className="max-w-[80%] max-h-[80%]" src={props.image} alt='' />
                 </div>
                 <div className="flex flex-col justify-center gap-1 md:gap-2">
@@ -46,9 +46,9 @@ const CartItem = props => {
             <div className='flex flex-col items-end md:flex-row-reverse md:items-center justify-center gap-2 md:gap-[8vw]'>
                 {props.sale ? <h3 className="text-primary flex items-center font-bold text-md md:text-2xl">${props.sale ? props.price - (props.price * (props.sale / 100)) : props.price}</h3> : <h3 className="text-primary flex items-center font-bold text-md md:text-xl">${props.price}</h3>}
                 <div className="flex items-center md:items-center md:grid md:grid-cols-2 gap-2">
-                    <button onClick={() => {dispatch(add(props.cloth))}} className="rounded h-8 w-8 text-sm bg-[#F6F6F6] font-bold flex justify-center items-center my-auto">+</button>
+                    <button onClick={() => {dispatch(add(props.cloth))}} className="rounded h-8 w-8 text-sm bg-[#FBFBFB] shadow-outsideBlueSm font-bold flex justify-center items-center my-auto">+</button>
                     <h3 className="font-bold text-sm md:col-first md:row-[1/3] md:text-xl justify-self-center flex items-center">{index > -1 ? props.cart.find(item => item.id === props.id).quantity : <></>}</h3>
-                    <button onClick={() => {dispatch(remove(props.cloth))}} className="rounded h-8 w-8 text-sm bg-[#F6F6F6] font-bold flex justify-center items-center my-auto">-</button>
+                    <button onClick={() => {dispatch(remove(props.cloth))}} className="rounded h-8 w-8 text-sm bg-[#FBFBFB] shadow-outsideBlueSm font-bold flex justify-center items-center my-auto">-</button>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@ const CartItem = props => {
 
 const Summary = ({ summary, logged }) => {
     return (
-        <div className="summary flex flex-col border-[#E6E6E6] md:w-auto md:mx-0 md:border-[1px] md:self-start">
+        <div className="summary flex flex-col shadow-outsideBlueMd rounded-xl md:w-auto md:mx-0 md:border-[1px] md:self-start">
             <h3 className="border-[#E6E6E6] md:border-b-[1px] w-full px-[8vw] md:px-8 py-6 pb-0 md:pb-6 font-bold text-xl">Checkout</h3>
             <div className='border-[#E6E6E6] border-b-[1px] px-[8vw] md:px-8  py-6 flex flex-col gap-2'>
                 <div className="flex justify-between items-center font-medium text-sm">

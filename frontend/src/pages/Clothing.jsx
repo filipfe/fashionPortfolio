@@ -75,8 +75,8 @@ export default function Clothing() {
 
     const AsideFilter = () => {
         return (
-            <aside className="hidden md:block">
-                <h2 className="text-3xl font-bold mb-8">Filters</h2>
+            <aside className="hidden md:block bg-white shadow-outsideBlueLg p-8 rounded-md">
+                <h2 className="text-2xl font-bold mb-8">Filters</h2>
                 <nav className="flex flex-col gap-4 mb-8">
                     {filters.map(filter => <a className={`${filtered.filter === filter ? 'text-primary font-bold' : 'hover:text-primary'} cursor-pointer`} key={filter} onClick={() => setFiltered({filter: filter, clothes: clothes.filter(cloth => cloth.type === filter.toLowerCase())})}>{filter}</a>)}
                 </nav>
@@ -96,7 +96,7 @@ export default function Clothing() {
                 {active ? <div className='absolute left-0 lg:left-auto lg:right-0 mt-2 rounded p-4 flex flex-col bg-white gap-4 border-[1px] border-[#E6E6E6]'>
                     <h4 className="font-bold">Price</h4>
                     <ul className="text-[#8B8B8B] flex flex-col font-medium gap-1">
-                        {sorts.price.map(price => <li className={`cursor-pointer ${sort.price === price ? 'text-primary font-bold' : 'hover:text-primary'}`} key={price} onClick={() => setSort({...sort, price: price})}>{price}</li>)}
+                        {sorts.price.map(price => <li className={`cursor-pointer transition ${sort.price === price ? 'text-primary font-bold' : 'hover:text-primary text-[#979797]'}`} key={price} onClick={() => setSort({...sort, price: price})}>{price}</li>)}
                     </ul>
                 </div> : <></>}
             </div>
@@ -104,15 +104,15 @@ export default function Clothing() {
     }
 
     return (
-        <section className="padding-x padding-y">
+        <section className="padding-x pt-[1.3in] md:pt-[1.8in] min-h-screen flex flex-col">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-8 md:gap-0 relative z-10">
                 <h1 className="font-bold text-4xl lg:text-5xl first-letter:capitalize">{location.pathname.split("/").pop()}</h1>
                 <SearchBar />
                 <Sort />
             </div>
-            <div className='md:grid-cols-clothes md:grid mt-8 md:mt-20'>
+            <div className='md:grid-cols-clothes md:grid md:flex-grow mt-8 md:mt-20'>
                 <AsideFilter />
-                <div className='clothes-grid flex flex-col gap-8 md:grid grid-cols-mobileAutoFit min-h-[3in] md:min-h-0 md:grid-cols-autoFit md:pl-8 md:border-l-[1px] md:border-[#BDBDBD]'>
+                <div className='clothes-grid flex flex-col gap-8 md:grid grid-cols-mobileAutoFit min-h-[3in] md:grid-cols-autoFit md:ml-8 p-8 bg-white shadow-outsideBlueLg rounded-md'>
                     {clothes.length === 0 || filtered.clothes === 0 ?  <Loader /> : <></>}
                     {filtered.clothes.length === 0 ? clothes.map(cloth => <Cloth {...cloth} key={cloth} fav={saved} cloth={cloth} />) :
                     filtered.clothes.map(cloth => <Cloth {...cloth} key={cloth} fav={saved} cloth={cloth} />)}
@@ -172,16 +172,16 @@ const Cloth = (props) => {
         <div className="relative">
             <Link className='block relative no-underline' to={`/clothing/${props.id}`}>
                 {props.sale ? <img className="absolute max-w-[3rem] left-3 top-3" src={sale} alt="sale" /> : <></> }
-                <div className='h-[4in] md:h-[4.5in] bg-[#F2F2F2] flex justify-center items-center'>
+                <div className='h-[4in] md:h-[4.5in] bg-[#FBFBFB] rounded-xl shadow-outsideBlueSm flex justify-center items-center'>
                     <img className="max-w-[90%] max-h-[90%]" src={`/images/${props.image.split('/').pop()}`} alt='' />
                 </div>
-                <h3 className='text-center text-xl my-3'>{props.title}</h3>
+                <h3 className='text-center font-medium text-xl mt-4 mb-1'>{props.title}</h3>
                 {props.sale > 0 ? 
                 <>  
                     <p className='text-center'><del>${props.price}</del></p>
-                    <p className='text-center'><strong>${props.price - (props.price * (props.sale / 100))} <strong className='text-red-500'>{`(-${props.sale}%)`}</strong></strong></p>
+                    <p className='text-center'><strong className="text-primary">${props.price - (props.price * (props.sale / 100))} <strong className='text-red-500'>{`(-${props.sale}%)`}</strong></strong></p>
                 </>
-                : <p className='text-center font-bold'>${props.price}</p>}
+                : <p className='text-center text-primary font-bold'>${props.price}</p>}
             </Link>
             <Save onClick={() => setSaved(prev => !prev)} className="absolute top-[4.8in] cursor-pointer left-6 max-h-8 max-w-8 z-10" fill={saved ? 'red' : 'white'} alt="Save" />
         </div>

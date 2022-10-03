@@ -9,12 +9,25 @@ export const loginSlice = createSlice({
             first_name: '',
             last_name: '',
             email: ''
+        },
+        tokens: {
+            access: '',
+            refresh: ''
         }
     },
     reducers: {
         login: (state, action) => {
             state.logged = true
-            state.info = {...action.payload}
+            state.info = {
+                id: action.payload.info.user_id,
+                first_name: action.payload.info.first_name,
+                last_name: action.payload.info.last_name,
+                email: action.payload.info.email,
+            }
+            state.tokens = {
+                access: action.payload.tokens[0],
+                refresh: action.payload.tokens[1]
+            }
         },
         logout: state => {
             state.logged = false
@@ -23,6 +36,10 @@ export const loginSlice = createSlice({
                 first_name: '',
                 last_name: '',
                 email: ''
+            }
+            state.tokens = {
+                access: '',
+                refresh: ''
             }
         }
     }
