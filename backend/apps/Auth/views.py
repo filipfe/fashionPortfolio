@@ -28,7 +28,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
         
-        token['username'] = user.username
+        token['first_name'] = user.first_name
+        token['last_name'] = user.last_name
         token['email'] = user.email
 
         return token
@@ -51,7 +52,7 @@ class SignUpView(generics.GenericAPIView):
         token = RefreshToken.for_user(user).access_token
         current_site = get_current_site(request).domain
         relativeLink = reverse('activate-account')
-        absurl = 'http://' + current_site + relativeLink + '?token=' + str(token)
+        absurl = 'https://' + current_site + relativeLink + '?token=' + str(token)
         email_body = 'Hi ' + user.first_name + '\nActivate your account: ' + absurl
         data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Activate your account'}
         Util.send_email(data)
