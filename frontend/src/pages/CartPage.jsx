@@ -51,6 +51,7 @@ export default function CartPage() {
     } else {
         return (
             <section className='padding-y padding-x pb0 relative flex flex-col items-center min-h-screen'>
+                {/* AVduo4ooBqMAauuqdPiKTlRu1pxMhmDqOQIEEx4Z0SjhBk1KUpFYrC6ZU3Waa7tdnqQ3U1VbG4ARbExd */}
                 <PayPalScriptProvider options={{"client-id": 'AdORToXVjx2A9wjRlvRmuu93SboFo1PgQWSYQhZ3bCDm8x_KhHMDkYHDML4kYWXjFYdHAsmm08KS6XSV'}}>
                     {url === 'shipping' ? <Shipping setOrder={setOrder} /> : url === 'payment' ? <Payment setOrder={setOrder} summary={summary} /> : <Summary cart={cart} summary={summary} />}
                 </PayPalScriptProvider>

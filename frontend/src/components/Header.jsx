@@ -30,7 +30,7 @@ export default function Header() {
     const url = location.pathname.split('/').pop()
 
     return (
-        <header className={`flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] bg-white padding-x shadow-sm fixed top-0 right-0 left-0 ${location.pathname.includes("login") || location.pathname.includes("activate") || url === "signup" || url === "contact" || url === "recovery" ? 'hidden' : 'z-20'}`}>
+        <header className={`flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] bg-white padding-x shadow-sm fixed top-0 right-0 left-0 z-20 ${location.pathname.includes("login") || location.pathname.includes("activate") || url === "signup" || url === "contact" || url === "recovery" ? 'hidden' : ''}`}>
             <div className='logo font-medium'>
                 <Link className='font-bold' to='/' onClick={disableNav}><span className='text-primary'>Fashion</span>Icons</Link>
             </div>

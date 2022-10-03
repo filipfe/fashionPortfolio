@@ -1,7 +1,5 @@
-import buttonStyles from "../utils/buttonStyles"
 import { Link} from "react-router-dom"
 import arrow from '../assets/arrow-left.svg'
-import { useNavigate } from "react-router-dom"
 import ShippingNav from "./ShippingNav"
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useEffect } from "react"
@@ -16,8 +14,6 @@ export default function Summary(props) {
 }
 
 function Info(props) {
-    const navigate = useNavigate()
-
     let price = 0;
     useEffect(() => {
         props.cart.forEach(item => item.sale ? price += (item.price - (item.price * (item.sale / 100))) * item.quantity : price += item.price * item.quantity)
@@ -35,15 +31,17 @@ function Info(props) {
                     <h3 className="text-primary text-2xl font-bold">${props.summary}</h3>
                 </div>
                 <Link to='/cart/payment' className='text-primary col-[1/3] px-6 py-3 max-w-max flex items-center justify-center border-[1px] border-primary rounded-md font-medium mt-6 sm:mt-0'><img className="mr-[.8em] max-h-[.8em]" src={arrow} alt='' />Back</Link>
-                <PayPalButtons createOrder={(data, actions) => {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: price
-                            }
-                        }]
-                    })
-                }} />
+                <div className="relative z-0">
+                    <PayPalButtons createOrder={(data, actions) => {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: price
+                                }
+                            }]
+                        })
+                    }} />
+                </div>
             </div>
         </div>
     ) 
