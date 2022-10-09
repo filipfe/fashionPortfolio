@@ -1,14 +1,1 @@
-<svg width="72" height="144" viewBox="0 0 72 144" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="2.5" cy="136.5" r="7.5" transform="rotate(-90 2.5 136.5)" fill="#3552DC"/>
-<circle cx="2.5" cy="93.5" r="7.5" transform="rotate(-90 2.5 93.5)" fill="#3552DC"/>
-<circle cx="2.5" cy="50.5" r="7.5" transform="rotate(-90 2.5 50.5)" fill="#3552DC"/>
-<circle cx="2.5" cy="7.5" r="7.5" transform="rotate(-90 2.5 7.5)" fill="#3552DC"/>
-<circle cx="33.5" cy="136.5" r="7.5" transform="rotate(-90 33.5 136.5)" fill="#3552DC"/>
-<circle cx="33.5" cy="93.5" r="7.5" transform="rotate(-90 33.5 93.5)" fill="#3552DC"/>
-<circle cx="33.5" cy="50.5" r="7.5" transform="rotate(-90 33.5 50.5)" fill="#3552DC"/>
-<circle cx="33.5" cy="7.5" r="7.5" transform="rotate(-90 33.5 7.5)" fill="#3552DC"/>
-<circle cx="64.5" cy="136.5" r="7.5" transform="rotate(-90 64.5 136.5)" fill="#3552DC"/>
-<circle cx="64.5" cy="93.5" r="7.5" transform="rotate(-90 64.5 93.5)" fill="#3552DC"/>
-<circle cx="64.5" cy="50.5" r="7.5" transform="rotate(-90 64.5 50.5)" fill="#3552DC"/>
-<circle cx="64.5" cy="7.5" r="7.5" transform="rotate(-90 64.5 7.5)" fill="#3552DC"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="144" fill="none" viewBox="0 0 72 144"><circle cx="2.5" cy="136.5" r="7.5" fill="#3552DC" transform="rotate(-90 2.5 136.5)"/><circle cx="2.5" cy="93.5" r="7.5" fill="#3552DC" transform="rotate(-90 2.5 93.5)"/><circle cx="2.5" cy="50.5" r="7.5" fill="#3552DC" transform="rotate(-90 2.5 50.5)"/><circle cx="2.5" cy="7.5" r="7.5" fill="#3552DC" transform="rotate(-90 2.5 7.5)"/><circle cx="33.5" cy="136.5" r="7.5" fill="#3552DC" transform="rotate(-90 33.5 136.5)"/><circle cx="33.5" cy="93.5" r="7.5" fill="#3552DC" transform="rotate(-90 33.5 93.5)"/><circle cx="33.5" cy="50.5" r="7.5" fill="#3552DC" transform="rotate(-90 33.5 50.5)"/><circle cx="33.5" cy="7.5" r="7.5" fill="#3552DC" transform="rotate(-90 33.5 7.5)"/><circle cx="64.5" cy="136.5" r="7.5" fill="#3552DC" transform="rotate(-90 64.5 136.5)"/><circle cx="64.5" cy="93.5" r="7.5" fill="#3552DC" transform="rotate(-90 64.5 93.5)"/><circle cx="64.5" cy="50.5" r="7.5" fill="#3552DC" transform="rotate(-90 64.5 50.5)"/><circle cx="64.5" cy="7.5" r="7.5" fill="#3552DC" transform="rotate(-90 64.5 7.5)"/></svg>
